@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function interpolationSearch
  * @description Interpolation search is an algorithm for searching for a
@@ -13,6 +14,7 @@ export const interpolationSearch = (
   array: number[],
   target: number
 ): number => {
+logger.debug(`>>> Entering interpolationSearch(array=${array},target=${target})`);
   let lowIndex: number = 0
   let highIndex: number = array.length - 1
   let currentValue: number = array[lowIndex]
@@ -51,5 +53,6 @@ export const interpolationSearch = (
     }
   }
 
+logger.debug(`<<< Exiting interpolationSearch(array=${array},target=${target})`);
   return -1
 }

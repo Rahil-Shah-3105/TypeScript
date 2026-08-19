@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @description Fibonacci search algorithm for a sorted array.
  *
@@ -17,10 +18,14 @@ export const fibonacciSearch = (
   array: number[],
   target: number
 ): number | null => {
+logger.debug(`>>> Entering fibonacciSearch(array=${array},target=${target})`);
   const arrayLength = array.length
   let a = 0 // (n-2)'th Fibonacci No.
+logger.debug(`fibonacciSearch(array=${array},target=${target}): a → ${a}`);
   let b = 1 // (n-1)'th Fibonacci No.
+logger.debug(`fibonacciSearch(array=${array},target=${target}): b → ${b}`);
   let c = a + b // n'th Fibonacci
+logger.debug(`fibonacciSearch(array=${array},target=${target}): c → ${c}`);
 
   while (c < arrayLength) {
     a = b
@@ -53,5 +58,6 @@ export const fibonacciSearch = (
   }
 
   // Element not found then return null
+logger.debug(`<<< Exiting fibonacciSearch(array=${array},target=${target})`);
   return null
 }

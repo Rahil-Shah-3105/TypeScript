@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function tarjan
  * @description Given a graph, find the strongly connected components(SCC) in reverse topological order. A set of nodes form a SCC if there is a path between all pairs of points within that set.
@@ -9,6 +10,7 @@
  * @see https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
  */
 export const tarjan = (graph: number[][]): number[][] => {
+logger.debug(`>>> Entering tarjan(graph=${graph})`);
   if (graph.length === 0) {
     return []
   }
@@ -23,8 +25,10 @@ export const tarjan = (graph: number[][]): number[][] => {
   // Holds the elements in the stack.
   const stackContains = Array(graph.length).fill(false)
   const sccs: number[][] = []
+logger.debug(`tarjan(graph=${graph}): stackContains → ${stackContains}`);
 
   const dfs = (node: number) => {
+	logger.debug(`>>> Entering dfs(node=${node})`);
     discovery[node] = index
     low[node] = index
     ++index
@@ -58,6 +62,7 @@ export const tarjan = (graph: number[][]): number[][] => {
       stack.pop()
       sccs.push(scc)
     }
+	logger.debug(`<<< Exiting dfs(node=${node})`);
   }
 
   for (let i = 0; i < graph.length; ++i) {
@@ -65,5 +70,6 @@ export const tarjan = (graph: number[][]): number[][] => {
       dfs(i)
     }
   }
+logger.debug(`<<< Exiting tarjan(graph=${graph})`);
   return sccs
 }
