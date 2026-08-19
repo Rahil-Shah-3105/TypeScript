@@ -1,3 +1,4 @@
+const logger = console;
 import { DisjointSet } from '../data_structures/disjoint_set/disjoint_set'
 
 /**
@@ -15,12 +16,14 @@ export const kruskal = (
   edges: Edge[],
   num_vertices: number
 ): [Edge[], number] => {
+logger.debug(`>>> Entering kruskal(edges=${edges},num_vertices=${num_vertices})`);
   let cost = 0
   const minimum_spanning_tree = []
 
   // Use a disjoint set to quickly join sets and find if vertices live in different sets
   const sets = new DisjointSet(num_vertices)
 
+logger.debug(`kruskal(edges=${edges},num_vertices=${num_vertices}): sets → ${sets}`);
   // Sort the edges in ascending order by weight so that we can greedily add cheaper edges to the tree
   edges.sort((a, b) => a.weight - b.weight)
 
@@ -33,6 +36,7 @@ export const kruskal = (
     }
   }
 
+logger.debug(`<<< Exiting kruskal(edges=${edges},num_vertices=${num_vertices})`);
   return [minimum_spanning_tree, cost]
 }
 
@@ -41,8 +45,11 @@ export class Edge {
   b: number = 0
   weight: number = 0
   constructor(a: number, b: number, weight: number) {
+	logger.debug(`>>> Entering constructor(a=${a},b=${b},weight=${weight})`);
     this.a = a
     this.b = b
     this.weight = weight
+	logger.debug(`constructor(a=${a},b=${b},weight=${weight}): this.weight → ${this.weight}`);
+	logger.debug(`<<< Exiting constructor(a=${a},b=${b},weight=${weight})`);
   }
 }

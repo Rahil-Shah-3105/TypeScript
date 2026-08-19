@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A Disjoint Set is a data structure that keeps track of a set of elements
  * partitioned into a number of disjoint (non-overlapping) subsets.
@@ -22,9 +23,11 @@ export class DisjointSet {
   private size: number[]
 
   constructor(n: number) {
+	logger.debug(`>>> Entering constructor(n=${n})`);
     // Initially each set has its own id element
     this.head = Array.from({ length: n }, (_, index) => index)
     this.size = Array(n).fill(1)
+	logger.debug(`<<< Exiting constructor(n=${n})`);
   }
 
   /**
@@ -32,9 +35,11 @@ export class DisjointSet {
    */
   find(index: number): number {
     if (this.head[index] != index) {
+	logger.debug(`>>> Entering find(index=${index})`);
       // Use path compression (set an edge between the element and its head)
       this.head[index] = this.find(this.head[index])
     }
+	logger.debug(`<<< Exiting find(index=${index})`);
     return this.head[index]
   }
 
@@ -46,11 +51,14 @@ export class DisjointSet {
     let firstHead = this.find(first)
     let secondHead = this.find(second)
 
+	logger.debug(`join(first=${first},second=${second}): firstHead → ${firstHead}`);
+	logger.debug(`join(first=${first},second=${second}): secondHead → ${secondHead}`);
     // If they're the same (same set)
     if (firstHead === secondHead) return
 
     // Keep the bigger set in firstHead
     if (this.size[firstHead] < this.size[secondHead]) {
+	logger.debug(`>>> Entering join(first=${first},second=${second})`);
       ;[firstHead, secondHead] = [secondHead, firstHead]
     }
 
@@ -59,12 +67,15 @@ export class DisjointSet {
 
     // Update size of the bigger set after join
     this.size[firstHead] += this.size[secondHead]
+	logger.debug(`<<< Exiting join(first=${first},second=${second})`);
   }
 
   /**
    * Check whether two elements are in the same set
    */
   isSame(first: number, second: number): boolean {
+	logger.debug(`>>> Entering isSame(first=${first},second=${second})`);
+	logger.debug(`<<< Exiting isSame(first=${first},second=${second})`);
     return this.find(first) === this.find(second)
   }
 }

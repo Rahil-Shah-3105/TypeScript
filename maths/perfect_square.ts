@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function perfectSquare
  * @description the square root of a number should be an integer
@@ -7,5 +8,7 @@
  */
 
 export const perfectSquare = (num: number) => {
+logger.debug(`>>> Entering perfectSquare(num=${num})`);
+logger.debug(`<<< Exiting perfectSquare(num=${num})`);
   return Number.isInteger(Math.sqrt(num))
 }

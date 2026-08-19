@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function selectionSort
  * @description Selection sort algorithm is simple and easy. In selection sort the smallest value is selected from the unsorted part and placed at the beginning. This algorithm is not suitable for large data sets as its average and worst-case time complexity is quite high.
@@ -18,6 +19,7 @@
  */
 
 export const selectionSort = (items: number[]) => {
+logger.debug(`>>> Entering selectionSort(items=${items})`);
   for (let i = 0; i < items.length; i++) {
     let min = i
     for (let j = i + 1; j < items.length; j++) {
@@ -29,5 +31,6 @@ export const selectionSort = (items: number[]) => {
       ;[items[i], items[min]] = [items[min], items[i]]
     }
   }
+logger.debug(`<<< Exiting selectionSort(items=${items})`);
   return items
 }

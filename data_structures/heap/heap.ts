@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A heap is a complete binary tree
  * In a complete binary tree each level is filled before lower levels are added
@@ -17,6 +18,9 @@ export abstract class Heap<T> {
   constructor(compare: (a: T, b: T) => boolean) {
     this.heap = []
     this.compare = compare
+	logger.debug(`constructor(compare=${compare}): this.compare → ${this.compare}`);
+	logger.debug(`constructor(compare=${compare}): this.heap → ${this.heap}`);
+	logger.debug(`<<< Exiting constructor(keys_index=${keys_index},num_keys=${num_keys},compare=${compare})`);
   }
 
   /**
@@ -25,6 +29,8 @@ export abstract class Heap<T> {
    * In a minHeap, the value at parentIndex should be smaller than the value at childIndex
    */
   private isRightlyPlaced(childIndex: number, parentIndex: number): boolean {
+	logger.debug(`>>> Entering isRightlyPlaced(childIndex=${childIndex},parentIndex=${parentIndex})`);
+	logger.debug(`<<< Exiting isRightlyPlaced(childIndex=${childIndex},parentIndex=${parentIndex})`);
     return this.compare(this.heap[parentIndex], this.heap[childIndex])
   }
 
@@ -42,41 +48,54 @@ export abstract class Heap<T> {
     return this.compare(this.heap[leftChildIndex], this.heap[rightChildIndex])
       ? leftChildIndex
       : rightChildIndex
+	logger.debug(`<<< Exiting getChildIndexToSwap(leftChildIndex=${leftChildIndex},rightChildIndex=${rightChildIndex})`);
   }
 
   public insert(value: T): void {
+	logger.debug(`>>> Entering insert(value=${value})`);
     this.heap.push(value)
     this.bubbleUp()
+	logger.debug(`<<< Exiting insert(value=${value})`);
   }
 
   public extract(): T {
+	logger.debug('>>> Entering extract()');
     const maxElement = this.heap[0]
     this.heap[0] = this.heap[this.size() - 1]
     this.heap.pop()
     this.sinkDown()
+	logger.debug('<<< Exiting extract()');
     return maxElement
   }
 
   public size(): number {
+	logger.debug('>>> Entering size()');
+	logger.debug('<<< Exiting size()');
     return this.heap.length
   }
 
   public isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return this.size() === 0
   }
 
   protected swap(a: number, b: number): void {
+	logger.debug(`>>> Entering swap(a=${a},b=${b})`);
     ;[this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]]
+	logger.debug(`<<< Exiting swap(a=${a},b=${b})`);
   }
 
   protected bubbleUp(index: number = this.size() - 1): void {
     let parentIndex
 
     while (index > 0) {
+	logger.debug(`>>> Entering bubbleUp(index=${index})`);
       parentIndex = Math.floor((index - 1) / 2)
       if (this.isRightlyPlaced(index, parentIndex)) break
       this.swap(parentIndex, index)
       index = parentIndex
+	logger.debug(`<<< Exiting bubbleUp(index=${index})`);
     }
   }
 
@@ -85,8 +104,11 @@ export abstract class Heap<T> {
     let leftChildIndex = this.getLeftChildIndex(index)
     let rightChildIndex = this.getRightChildIndex(index)
     let childIndexToSwap
+	logger.debug(`sinkDown(): leftChildIndex → ${leftChildIndex}`);
+	logger.debug(`sinkDown(): rightChildIndex → ${rightChildIndex}`);
 
     while (this.heap[leftChildIndex] || this.heap[rightChildIndex]) {
+	logger.debug('>>> Entering sinkDown()');
       childIndexToSwap = this.getChildIndexToSwap(
         leftChildIndex,
         rightChildIndex
@@ -97,13 +119,18 @@ export abstract class Heap<T> {
       leftChildIndex = this.getLeftChildIndex(index)
       rightChildIndex = this.getRightChildIndex(index)
     }
+	logger.debug('<<< Exiting sinkDown()');
   }
 
   private getLeftChildIndex(index: number): number {
+	logger.debug(`>>> Entering getLeftChildIndex(index=${index})`);
+	logger.debug(`<<< Exiting getLeftChildIndex(index=${index})`);
     return index * 2 + 1
   }
 
   private getRightChildIndex(index: number): number {
+	logger.debug(`>>> Entering getRightChildIndex(index=${index})`);
+	logger.debug(`<<< Exiting getRightChildIndex(index=${index})`);
     return index * 2 + 2
   }
 
@@ -116,10 +143,13 @@ export abstract class Heap<T> {
     const leftChildIndex = this.getLeftChildIndex(index)
     const rightChildIndex = this.getRightChildIndex(index)
 
+	logger.debug(`_check(index=${index}): leftChildIndex → ${leftChildIndex}`);
     if (
       this.heap[leftChildIndex] &&
       !this.isRightlyPlaced(leftChildIndex, index)
     ) {
+	logger.debug(`>>> Entering _check(index=${index})`);
+	logger.debug(`_check(index=${index}): rightChildIndex → ${rightChildIndex}`);
       throw new Error('Heap does not adhere to heap invariant')
     }
 
@@ -132,6 +162,7 @@ export abstract class Heap<T> {
 
     this._check(leftChildIndex)
     this._check(rightChildIndex)
+	logger.debug(`<<< Exiting _check(index=${index})`);
   }
 }
 
@@ -159,14 +190,18 @@ export class PriorityQueue<T> extends MinHeap<T> {
     compare: (a: T, b: T) => boolean = (a: T, b: T) => a < b
   ) {
     super(compare)
+    super(compare)
     this.keys = Array(num_keys).fill(-1)
     this.keys_index = keys_index
+	logger.debug(`>>> Entering constructor(keys_index=${keys_index},num_keys=${num_keys},compare=${compare})`);
   }
 
   protected swap(a: number, b: number): void {
     const akey = this.keys_index(this.heap[a])
     const bkey = this.keys_index(this.heap[b])
     ;[this.keys[akey], this.keys[bkey]] = [this.keys[bkey], this.keys[akey]]
+	logger.debug(`swap(a=${a},b=${b}): akey → ${akey}`);
+	logger.debug(`swap(a=${a},b=${b}): bkey → ${bkey}`);
     super.swap(a, b)
   }
 
@@ -186,11 +221,13 @@ export class PriorityQueue<T> extends MinHeap<T> {
 
   public increasePriority(idx: number, value: T): void {
     if (this.keys[idx] === -1) {
+	logger.debug(`>>> Entering increasePriority(idx=${idx},value=${value})`);
       // If the key does not exist, insert the value.
       this.insert(value)
       return
     }
     const key = this.keys[idx]
+	logger.warn(`increasePriority(idx=${idx},value=${value}): key → ${key}`);
     if (this.compare(this.heap[key], value)) {
       // Do not do anything if the value in the heap already has a higher priority.
       return
@@ -198,5 +235,6 @@ export class PriorityQueue<T> extends MinHeap<T> {
     // Increase the priority and bubble it up the heap.
     this.heap[key] = value
     this.bubbleUp(key)
+	logger.debug(`<<< Exiting increasePriority(idx=${idx},value=${value})`);
   }
 }

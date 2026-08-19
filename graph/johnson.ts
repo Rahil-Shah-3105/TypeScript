@@ -1,3 +1,4 @@
+const logger = console;
 import { bellmanFord } from './bellman_ford'
 import { dijkstra } from './dijkstra'
 
@@ -14,11 +15,13 @@ import { dijkstra } from './dijkstra'
 export const johnson = (
   graph: [number, number][][]
 ): number[][] | undefined => {
+logger.debug(`>>> Entering johnson(graph=${graph})`);
   const N = graph.length
 
   // Add a new node and 0 weighted edges from the new node to all existing nodes.
   const newNodeGraph = structuredClone(graph)
   const newNode: [number, number][] = []
+logger.debug(`johnson(graph=${graph}): newNodeGraph → ${newNodeGraph}`);
   for (let i = 0; i < N; ++i) {
     newNode.push([i, 0])
   }
@@ -27,6 +30,7 @@ export const johnson = (
   // Compute distances from the new node to existing nodes using the Bellman-Ford algorithm.
   const adjustedGraph = bellmanFord(newNodeGraph, N)
   if (adjustedGraph === undefined) {
+logger.debug(`johnson(graph=${graph}): adjustedGraph → ${adjustedGraph}`);
     // Found a negative weight cycle.
     return undefined
   }
@@ -45,9 +49,11 @@ export const johnson = (
     // Compute Dijkstra weights for each node and re-adjust weights to their original values.
     const dijkstraShorestPaths = dijkstra(graph, i)
     for (let j = 0; j < N; ++j) {
+	logger.debug(`johnson(graph=${graph}): dijkstraShorestPaths → ${dijkstraShorestPaths}`);
       dijkstraShorestPaths[j] += adjustedGraph[j] - adjustedGraph[i]
     }
     shortestPaths.push(dijkstraShorestPaths)
   }
+logger.debug(`<<< Exiting johnson(graph=${graph})`);
   return shortestPaths
 }

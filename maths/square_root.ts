@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function squareRoot
  * @description Finding the square root of a number using Newton's method.
@@ -10,6 +11,7 @@
  */
 
 export const squareRoot = (num: number, precision: number = 1e-15): number => {
+logger.debug(`>>> Entering squareRoot(num=${num},precision=${precision})`);
   if (num < 0) throw new Error('number must be non-negative number')
   if (num === 0) return 0
 
@@ -23,4 +25,5 @@ export const squareRoot = (num: number, precision: number = 1e-15): number => {
     }
     sqrt = curr
   }
+logger.debug(`<<< Exiting squareRoot(num=${num},precision=${precision})`);
 }

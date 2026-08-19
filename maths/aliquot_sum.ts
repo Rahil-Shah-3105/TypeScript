@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function aliquotSum
  * @description Returns the aliquot sum of the provided number
@@ -13,6 +14,7 @@
  * @example aliquotSum(15) = 9
  */
 export const aliquotSum = (num: number): number => {
+logger.debug(`>>> Entering aliquotSum(num=${num})`);
   if (typeof num !== 'number') throw new TypeError('Input needs to be a number')
   if (num < 0) throw new TypeError('Input cannot be negative')
   if (!Number.isInteger(num)) throw new TypeError('Input cannot be a decimal')
@@ -23,5 +25,6 @@ export const aliquotSum = (num: number): number => {
     if (num % i === 0) sum += i
   }
 
+logger.debug(`<<< Exiting aliquotSum(num=${num})`);
   return sum
 }

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function calculateMedian
  * @description This function will find the median value of an array of numbers.
@@ -9,6 +10,7 @@
  */
 
 export const calculateMedian = (numbers: number[]): number => {
+logger.debug(`>>> Entering calculateMedian(numbers=${numbers})`);
   if (numbers.length < 1) {
     throw new TypeError('Input array must contain at least one number.')
   }
@@ -20,6 +22,7 @@ export const calculateMedian = (numbers: number[]): number => {
     return (numbers[index - 1] + numbers[index]) / 2
   } else {
     const index = (totalNumbers + 1) / 2
+logger.debug(`<<< Exiting calculateMedian(numbers=${numbers})`);
     return numbers[index - 1]
   }
 }

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * This generates an array of unique sub"sets" (represented by ascendingly sorted subarrays)
  * of size k out of n+1 numbers from 1 to n.
@@ -19,6 +20,7 @@ export function generateCombinations(n: number, k: number): number[][] {
     startCursor: number
   ): number[][] {
     if (k === 0) {
+	logger.debug(`>>> Entering generateCombinations(n=${n},k=${k})`);
       if (currentCombination.length > 0) {
         combinationsAcc.push(currentCombination.slice())
       }
@@ -31,6 +33,7 @@ export function generateCombinations(n: number, k: number): number[][] {
       generateAllCombos(n, k - 1, i + 1)
       currentCombination.pop()
     }
+	logger.debug(`<<< Exiting generateCombinations(n=${n},k=${k})`);
     return combinationsAcc
   }
 

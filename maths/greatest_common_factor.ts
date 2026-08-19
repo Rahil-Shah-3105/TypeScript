@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function greatestCommonFactor
  * @description Determine the greatest common factor of a group of numbers.
@@ -10,6 +11,7 @@
  */
 
 export const binaryGCF = (a: number, b: number): number => {
+logger.debug(`>>> Entering binaryGCF(a=${a},b=${b})`);
   if (!Number.isInteger(a) || !Number.isInteger(b) || a < 0 || b < 0) {
     throw new Error('numbers must be natural to determine factors')
   }
@@ -17,13 +19,16 @@ export const binaryGCF = (a: number, b: number): number => {
   while (b) {
     ;[a, b] = [b, a % b]
   }
+logger.debug(`<<< Exiting binaryGCF(a=${a},b=${b})`);
   return a
 }
 
 export const greatestCommonFactor = (nums: number[]): number => {
+logger.debug(`>>> Entering greatestCommonFactor(nums=${nums})`);
   if (nums.length === 0) {
     throw new Error('at least one number must be passed in')
   }
 
+logger.debug(`<<< Exiting greatestCommonFactor(nums=${nums})`);
   return nums.reduce(binaryGCF)
 }

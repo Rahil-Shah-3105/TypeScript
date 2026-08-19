@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function mergeSort
  * @description keeps on dividing the list into equal halves until it can no more be divided. By definition, if it is only one element in the list, it is sorted.
@@ -16,22 +17,29 @@
  */
 
 export function mergeSort(array: number[]): number[] {
+logger.debug(`>>> Entering mergeSort(array=${array})`);
   if (array.length <= 1) return array.slice()
 
   const midIndex = Math.floor(array.length / 2)
   const left = array.slice(0, midIndex)
   const right = array.slice(midIndex, array.length)
 
+logger.debug(`mergeSort(array=${array}): midIndex → ${midIndex}`);
+logger.debug(`mergeSort(array=${array}): left → ${left}`);
+logger.debug(`mergeSort(array=${array}): right → ${right}`);
+logger.debug(`<<< Exiting mergeSort(array=${array})`);
   return merge(mergeSort(left), mergeSort(right))
 }
 
 function merge(left: number[], right: number[]): number[] {
   const result = Array<number>(left.length + right.length)
   let curIndex = 0
+logger.debug(`merge(left=${left},right=${right}): result → ${result}`);
   let leftIndex = 0
   let rightIndex = 0
 
   while (leftIndex < left.length && rightIndex < right.length) {
+	logger.debug(`>>> Entering merge(left=${left},right=${right})`);
     if (left[leftIndex] < right[rightIndex]) {
       result[curIndex++] = left[leftIndex++]
     } else {

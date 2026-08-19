@@ -1,3 +1,4 @@
+const logger = console;
 import { Map } from '../map/map'
 import { HashMap } from '../map/hash_map'
 import { MapSet } from './map_set'
@@ -11,6 +12,9 @@ import { MapSet } from './map_set'
 export class HashMapSet<K> extends MapSet<K> {
   constructor() {
     super()
+    super()
+	logger.debug('>>> Entering constructor()');
+	logger.debug('<<< Exiting constructor()');
   }
 
   /**
@@ -19,6 +23,8 @@ export class HashMapSet<K> extends MapSet<K> {
    * @returns {Map<K, null>} The map used to store the set.
    */
   protected initMap(): Map<K, null> {
+	logger.debug('>>> Entering initMap()');
+	logger.debug('<<< Exiting initMap()');
     return new HashMap<K, null>()
   }
 }
