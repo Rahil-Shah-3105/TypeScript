@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function hammingDistance
  * @description Returns the Hamming distance between two strings of equal length
@@ -13,6 +14,7 @@
  * @example hammingDistance('happy', 'homie')
  */
 const hammingDistance = (str1: string, str2: string) => {
+logger.debug(`>>> Entering hammingDistance(str1=${str1},str2=${str2})`);
   if (str1.length !== str2.length)
     throw new Error('Strings must of the same length.')
 
@@ -20,6 +22,7 @@ const hammingDistance = (str1: string, str2: string) => {
 
   for (let i = 0; i < str1.length; i++) if (str1[i] !== str2[i]) dist++
 
+logger.debug(`<<< Exiting hammingDistance(str1=${str1},str2=${str2})`);
   return dist
 }
 

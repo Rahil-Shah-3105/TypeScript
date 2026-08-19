@@ -1,3 +1,4 @@
+const logger = console;
 import { LinkedList } from './linked_list'
 
 /**
@@ -23,6 +24,8 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    * @returns {boolean} Whether the list is empty or not.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return !this.head
   }
 
@@ -35,6 +38,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    */
   get(index: number): T | null {
     if (index < 0 || index >= this.length) {
+	logger.debug(`>>> Entering get(index=${index})`);
       return null
     }
 
@@ -43,6 +47,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
       currentNode = currentNode?.next
     }
 
+	logger.debug(`<<< Exiting get(index=${index})`);
     return currentNode?.value ?? null
   }
 
@@ -55,11 +60,15 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
   push(value: T): void {
     const newNode = new DoublyLinkedListNode(value)
 
+	logger.debug(`push(value=${value}): newNode → ${newNode}`);
     if (!this.head) {
+	logger.debug(`>>> Entering push(value=${value})`);
       this.head = newNode
       this.tail = newNode
+	logger.debug(`push(value=${value}): this.head → ${this.head}`);
     } else {
       this.head.prev = newNode
+	logger.debug(`push(value=${value}): this.tail → ${this.tail}`);
       newNode.next = this.head
       this.head = newNode
     }
@@ -76,6 +85,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    */
   pop(): T {
     if (!this.head) {
+	logger.debug('>>> Entering pop()');
       throw new Error('Index out of bounds')
     }
 
@@ -84,12 +94,15 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
     if (this.head === this.tail) {
       this.tail = undefined
     } else {
+	logger.debug(`pop(): this.tail → ${this.tail}`);
       this.head.next!.prev = undefined
     }
 
     this.head = this.head.next
     this.length--
 
+	logger.debug(`pop(): this.head → ${this.head}`);
+	logger.debug('<<< Exiting pop()');
     return removedNode.value
   }
 
@@ -102,14 +115,18 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
   append(value: T): void {
     const newNode = new DoublyLinkedListNode(value)
 
+	logger.debug(`append(value=${value}): newNode → ${newNode}`);
     if (!this.head) {
+	logger.debug(`>>> Entering append(value=${value})`);
       this.head = newNode
     } else {
+	logger.debug(`append(value=${value}): this.head → ${this.head}`);
       this.tail!.next = newNode
       newNode.prev = this.tail
     }
 
     this.tail = newNode
+	logger.debug(`append(value=${value}): this.tail → ${this.tail}`);
     this.length++
   }
 
@@ -122,6 +139,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    */
   removeTail(): T {
     if (!this.head) {
+	logger.debug('>>> Entering removeTail()');
       throw new Error('Index out of bounds')
     }
 
@@ -130,12 +148,15 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
     if (this.head === this.tail) {
       this.head = undefined
     } else {
+	logger.debug(`removeTail(): this.head → ${this.head}`);
       this.tail!.prev!.next = undefined
     }
 
     this.tail = this.tail!.prev
     this.length--
 
+	logger.debug(`removeTail(): this.tail → ${this.tail}`);
+	logger.debug('<<< Exiting removeTail()');
     return removedNode!.value
   }
 
@@ -149,6 +170,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    */
   insertAt(index: number, value: T): void {
     if (index < 0 || index > this.length) {
+	logger.debug(`>>> Entering insertAt(index=${index},value=${value})`);
       throw new Error('Index out of bounds')
     }
 
@@ -164,6 +186,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
 
     const newNode = new DoublyLinkedListNode(value)
     let prevNode: DoublyLinkedListNode<T> | undefined = this.head
+	logger.debug(`insertAt(index=${index},value=${value}): newNode → ${newNode}`);
     for (let i: number = 0; i < index - 1; i++) {
       prevNode = prevNode?.next
     }
@@ -171,7 +194,9 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
 
     prevNode!.next = newNode
     newNode.prev = prevNode
+	logger.debug(`insertAt(index=${index},value=${value}): newNode.prev → ${newNode.prev}`);
     newNode.next = nextNode
+	logger.debug(`insertAt(index=${index},value=${value}): newNode.next → ${newNode.next}`);
     nextNode!.prev = newNode
 
     this.length++
@@ -187,6 +212,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    */
   removeAt(index: number): T {
     if (index < 0 || index >= this.length) {
+	logger.debug(`>>> Entering removeAt(index=${index})`);
       throw new Error('Index out of bounds')
     }
 
@@ -207,6 +233,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
 
     this.length--
 
+	logger.debug(`<<< Exiting removeAt(index=${index})`);
     return removedNode!.value
   }
 
@@ -218,6 +245,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    */
   reverse(): DoublyLinkedList<T> | null {
     if (!this.head) {
+	logger.debug('>>> Entering reverse()');
       return null
     }
 
@@ -230,7 +258,9 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
       prevNode = currentNode.prev
 
       currentNode.next = prevNode
+	logger.debug(`reverse(): currentNode.next → ${currentNode.next}`);
       currentNode.prev = nextNode
+	logger.debug(`reverse(): currentNode.prev → ${currentNode.prev}`);
 
       prevNode = currentNode
       currentNode = nextNode
@@ -238,7 +268,10 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
 
     this.tail = this.head
     this.head = prevNode
+	logger.debug(`reverse(): this.tail → ${this.tail}`);
 
+	logger.debug(`reverse(): this.head → ${this.head}`);
+	logger.debug('<<< Exiting reverse()');
     return this
   }
 
@@ -246,9 +279,13 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    * Clears the list.
    */
   clear(): void {
+	logger.debug('>>> Entering clear()');
     this.head = undefined
     this.tail = undefined
     this.length = 0
+	logger.debug(`clear(): this.length → ${this.length}`);
+	logger.debug(`clear(): this.head → ${this.head}`);
+	logger.debug('<<< Exiting clear()');
   }
 
   /**
@@ -262,10 +299,12 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
     let currentNode: DoublyLinkedListNode<T> | undefined = this.head
 
     while (currentNode) {
+	logger.debug('>>> Entering toArray()');
       array.push(currentNode.value)
       currentNode = currentNode.next
     }
 
+	logger.debug('<<< Exiting toArray()');
     return array
   }
 
@@ -275,6 +314,8 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
    * @returns The length of the list.
    */
   getLength(): number {
+	logger.debug('>>> Entering getLength()');
+	logger.debug('<<< Exiting getLength()');
     return this.length
   }
 }

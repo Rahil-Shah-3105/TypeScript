@@ -1,3 +1,4 @@
+const logger = console;
 import { Map } from './map'
 
 /**
@@ -19,7 +20,9 @@ export class HashMap<K, V> implements Map<K, V> {
   private readonly loadFactor = 0.75
 
   constructor() {
+	logger.debug('>>> Entering constructor()');
     this.clear()
+	logger.debug('<<< Exiting constructor()');
   }
 
   /**
@@ -28,6 +31,8 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns The size.
    */
   getSize(): number {
+	logger.debug('>>> Entering getSize()');
+	logger.debug('<<< Exiting getSize()');
     return this.size
   }
 
@@ -40,6 +45,7 @@ export class HashMap<K, V> implements Map<K, V> {
   set(key: K, value: V): void {
     const loadFactor = this.size / this.buckets.length
     if (loadFactor > this.loadFactor) {
+	logger.debug(`>>> Entering set(key=${key},value=${value})`);
       this.resize()
     }
 
@@ -55,6 +61,7 @@ export class HashMap<K, V> implements Map<K, V> {
     for (const entry of bucket) {
       if (entry.key === key) {
         entry.value = value
+		logger.debug(`set(key=${key},value=${value}): entry.value → ${entry.value}`);
         return
       }
     }
@@ -74,6 +81,7 @@ export class HashMap<K, V> implements Map<K, V> {
     const bucket = this.buckets[index]
 
     for (const entry of bucket) {
+	logger.debug(`>>> Entering get(key=${key})`);
       if (entry.key === key) {
         return entry.value
       }
@@ -92,12 +100,14 @@ export class HashMap<K, V> implements Map<K, V> {
     const bucket = this.buckets[index]
 
     for (const entry of bucket) {
+	logger.debug(`>>> Entering delete(key=${key})`);
       if (entry.key === key) {
         bucket.splice(bucket.indexOf(entry), 1)
         this.size--
         return
       }
     }
+	logger.debug(`<<< Exiting delete(key=${key})`);
   }
 
   /**
@@ -111,11 +121,13 @@ export class HashMap<K, V> implements Map<K, V> {
     const bucket = this.buckets[index]
 
     for (const entry of bucket) {
+	logger.debug(`>>> Entering has(key=${key})`);
       if (entry.key === key) {
         return true
       }
     }
 
+	logger.debug(`<<< Exiting has(key=${key})`);
     return false
   }
 
@@ -123,8 +135,11 @@ export class HashMap<K, V> implements Map<K, V> {
    * Clears the hash map.
    */
   clear(): void {
+	logger.debug('>>> Entering clear()');
     this.size = 0
     this.initializeBuckets(16)
+	logger.debug(`clear(): this.size → ${this.size}`);
+	logger.debug('<<< Exiting clear()');
   }
 
   /**
@@ -135,11 +150,13 @@ export class HashMap<K, V> implements Map<K, V> {
   keys(): K[] {
     const keys: K[] = []
     for (const bucket of this.buckets) {
+	logger.debug('>>> Entering keys()');
       for (const entry of bucket) {
         keys.push(entry.key)
       }
     }
 
+	logger.debug('<<< Exiting keys()');
     return keys
   }
 
@@ -151,11 +168,13 @@ export class HashMap<K, V> implements Map<K, V> {
   values(): V[] {
     const values: V[] = []
     for (const bucket of this.buckets) {
+	logger.debug('>>> Entering values()');
       for (const entry of bucket) {
         values.push(entry.value)
       }
     }
 
+	logger.debug('<<< Exiting values()');
     return values
   }
 
@@ -167,11 +186,13 @@ export class HashMap<K, V> implements Map<K, V> {
   entries(): MapEntry<K, V>[] {
     const entries: MapEntry<K, V>[] = []
     for (const bucket of this.buckets) {
+	logger.debug('>>> Entering entries()');
       for (const entry of bucket) {
         entries.push(entry)
       }
     }
 
+	logger.debug('<<< Exiting entries()');
     return entries
   }
 
@@ -183,8 +204,11 @@ export class HashMap<K, V> implements Map<K, V> {
   private initializeBuckets(amount: number): void {
     this.buckets = []
     for (let i = 0; i < amount; i++) {
+	logger.debug(`>>> Entering initializeBuckets(amount=${amount})`);
+	logger.debug(`initializeBuckets(amount=${amount}): this.buckets → ${this.buckets}`);
       this.buckets.push([])
     }
+	logger.debug(`<<< Exiting initializeBuckets(amount=${amount})`);
   }
 
   /**
@@ -199,9 +223,11 @@ export class HashMap<K, V> implements Map<K, V> {
     let hash = 0
 
     for (let i = 0; i < String(key).length; i++) {
+	logger.debug(`>>> Entering hash(key=${key})`);
       hash = (hash << 5) - hash + String(key).charCodeAt(i)
     }
 
+	logger.debug(`<<< Exiting hash(key=${key})`);
     return hash % this.buckets.length
   }
 
@@ -214,8 +240,11 @@ export class HashMap<K, V> implements Map<K, V> {
     this.initializeBuckets(this.buckets.length * 2)
     this.size = 0
 
+	logger.debug(`resize(): this.size → ${this.size}`);
+	logger.debug('>>> Entering resize()');
     for (const entry of entries) {
       this.set(entry.key, entry.value)
+	logger.debug('<<< Exiting resize()');
     }
   }
 }
@@ -233,7 +262,9 @@ export class MapEntry<K, V> {
   value: V
 
   constructor(key: K, value: V) {
+	logger.debug(`>>> Entering constructor(key=${key},value=${value})`);
     this.key = key
     this.value = value
+	logger.debug(`constructor(key=${key},value=${value}): this.value → ${this.value}`);
   }
 }

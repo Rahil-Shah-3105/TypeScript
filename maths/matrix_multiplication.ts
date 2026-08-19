@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function matrixMultiplication
  * @description Multiply a matrix with either another matrix, a vector or a scalar
@@ -20,6 +21,8 @@ function matrixMultiplication(
   let matC: any = null
 
   if (typeof b === 'number') {
+	logger.debug(`>>> Entering matrixMultiplication(matA=${matA},b=${b})`);
+	logger.debug(`<<< Exiting matrixMultiplication(matA=${matA},b=${b})`);
     matC = matA.map((row) => row.map((colVal) => colVal * b))
   } else {
     if (matA[0].length !== b.length) {

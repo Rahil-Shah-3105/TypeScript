@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Represents a node in a Trie data structure.
  */
@@ -29,12 +30,15 @@ export class Trie {
    */
   private insertNode(node: TrieNode, word: string): void {
     for (const char of word) {
+	logger.debug(`>>> Entering insertNode(node=${node},word=${word})`);
       if (!node.children[char]) {
         node.children[char] = new TrieNode()
       }
       node = node.children[char]
     }
     node.isWord = true
+	logger.debug(`insertNode(node=${node},word=${word}): node.isWord → ${node.isWord}`);
+	logger.debug(`<<< Exiting insertNode(node=${node},word=${word})`);
   }
 
   /**
@@ -47,6 +51,8 @@ export class Trie {
    * @returns True if the word (or prefix) is found in the Trie; otherwise, false.
    */
   public find(word: string, isPrefixMatch = false): boolean {
+	logger.debug(`>>> Entering find(word=${word},isPrefixMatch=${isPrefixMatch})`);
+	logger.debug(`<<< Exiting find(word=${word},isPrefixMatch=${isPrefixMatch})`);
     return this.searchNode(this.root, word, isPrefixMatch)
   }
 
@@ -57,7 +63,9 @@ export class Trie {
    * @returns The Trie instance, allowing for method chaining.
    */
   public add(word: string): this {
+	logger.debug(`>>> Entering add(word=${word})`);
     this.insertNode(this.root, word)
+	logger.debug(`<<< Exiting add(word=${word})`);
     return this
   }
 
@@ -76,10 +84,12 @@ export class Trie {
     prefixMatch: boolean
   ): boolean {
     for (const char of word) {
+	logger.debug(`>>> Entering searchNode(node=${node},word=${word},prefixMatch=${prefixMatch})`);
       if (!node.children[char]) {
         return false
       }
       node = node.children[char]
+	logger.debug(`<<< Exiting searchNode(node=${node},word=${word},prefixMatch=${prefixMatch})`);
     }
     return prefixMatch || node.isWord
   }

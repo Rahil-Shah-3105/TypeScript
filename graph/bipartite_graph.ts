@@ -1,9 +1,11 @@
+const logger = console;
 const dfs = (
   graph: number[][],
   colors: number[],
   node: number,
   color: number
 ): boolean => {
+logger.debug(`>>> Entering dfs(graph=${graph},colors=${colors},node=${node},color=${color})`);
   if (colors[node] !== 0) {
     return colors[node] === color
   }
@@ -16,6 +18,7 @@ const dfs = (
     }
   }
 
+logger.debug(`<<< Exiting dfs(graph=${graph},colors=${colors},node=${node},color=${color})`);
   return true
 }
 
@@ -31,6 +34,7 @@ const dfs = (
  */
 
 export const isBipartite = (graph: number[][]): boolean => {
+logger.debug(`>>> Entering isBipartite(graph=${graph})`);
   const n: number = graph.length
   const colors: number[] = new Array(n).fill(0)
 
@@ -40,5 +44,6 @@ export const isBipartite = (graph: number[][]): boolean => {
     }
   }
 
+logger.debug(`<<< Exiting isBipartite(graph=${graph})`);
   return true
 }

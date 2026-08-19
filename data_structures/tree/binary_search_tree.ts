@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Represents a node of a binary search tree.
  *
@@ -44,6 +45,8 @@ export class BinarySearchTree<T> {
    * @returns Whether the binary search tree is empty.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return this.rootNode === undefined
   }
 
@@ -54,6 +57,7 @@ export class BinarySearchTree<T> {
    */
   has(data: T): boolean {
     if (!this.rootNode) {
+	logger.debug(`>>> Entering has(data=${data})`);
       return false
     }
 
@@ -74,6 +78,7 @@ export class BinarySearchTree<T> {
       }
     }
 
+	logger.debug(`<<< Exiting has(data=${data})`);
     return true
   }
 
@@ -85,6 +90,7 @@ export class BinarySearchTree<T> {
    */
   insert(data: T): void {
     if (!this.rootNode) {
+	logger.debug(`>>> Entering insert(data=${data})`);
       this.rootNode = new TreeNode<T>(data)
       return
     }
@@ -107,6 +113,7 @@ export class BinarySearchTree<T> {
         }
       }
     }
+	logger.debug(`<<< Exiting insert(data=${data})`);
   }
 
   /**
@@ -116,13 +123,17 @@ export class BinarySearchTree<T> {
    */
   findMin(): T {
     if (!this.rootNode) {
+	logger.debug('>>> Entering findMin()');
       throw new Error('Empty tree.')
     }
 
     const traverse = (node: TreeNode<T>): T => {
+	logger.debug(`>>> Entering traverse(node=${node})`);
+	logger.debug(`<<< Exiting traverse(node=${node})`);
       return !node.leftChild ? node.data : traverse(node.leftChild)
     }
 
+	logger.debug('<<< Exiting findMin()');
     return traverse(this.rootNode)
   }
 
@@ -133,13 +144,16 @@ export class BinarySearchTree<T> {
    */
   findMax(): T {
     if (!this.rootNode) {
+	logger.debug('>>> Entering findMax()');
       throw new Error('Empty tree.')
     }
 
     const traverse = (node: TreeNode<T>): T => {
+	logger.debug(`>>> Entering traverse(node=${node},array=${array})`);
       return !node.rightChild ? node.data : traverse(node.rightChild)
     }
 
+	logger.debug('<<< Exiting findMax()');
     return traverse(this.rootNode)
   }
 
@@ -152,6 +166,7 @@ export class BinarySearchTree<T> {
    */
   inOrderTraversal(array: T[] = []): T[] {
     if (!this.rootNode) {
+	logger.debug(`>>> Entering inOrderTraversal(array=${array})`);
       return array
     }
 
@@ -166,6 +181,7 @@ export class BinarySearchTree<T> {
       return array
     }
 
+	logger.debug(`<<< Exiting inOrderTraversal(array=${array})`);
     return traverse(this.rootNode)
   }
 
@@ -178,6 +194,7 @@ export class BinarySearchTree<T> {
    */
   preOrderTraversal(array: T[] = []): T[] {
     if (!this.rootNode) {
+	logger.debug(`>>> Entering preOrderTraversal(array=${array})`);
       return array
     }
 
@@ -193,6 +210,7 @@ export class BinarySearchTree<T> {
       return array
     }
 
+	logger.debug(`<<< Exiting preOrderTraversal(array=${array})`);
     return traverse(this.rootNode)
   }
 
@@ -205,6 +223,7 @@ export class BinarySearchTree<T> {
    */
   postOrderTraversal(array: T[] = []): T[] {
     if (!this.rootNode) {
+	logger.debug(`>>> Entering postOrderTraversal(array=${array})`);
       return array
     }
 
@@ -220,6 +239,7 @@ export class BinarySearchTree<T> {
       return array
     }
 
+	logger.debug(`<<< Exiting postOrderTraversal(array=${array})`);
     return traverse(this.rootNode)
   }
 }

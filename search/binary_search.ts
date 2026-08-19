@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function binarySearch
  * @description binary search algorithm (iterative & recursive implementations) for a sorted array.
@@ -37,6 +38,7 @@ export const binarySearchIterative = (
     middle = (start + end) >> 1
   }
   // return the middle index if it is equal to target
+logger.debug(`<<< Exiting binarySearchIterative(array=${array},target=${target},start=${start},end=${end})`);
   return array[middle] === target ? middle : null
 }
 
@@ -46,18 +48,21 @@ export const binarySearchRecursive = (
   start = 0,
   end = array.length - 1
 ): number | null => {
+logger.debug(`>>> Entering binarySearchRecursive(array=${array},target=${target},start=${start},end=${end})`);
   if (array.length === 0) return null
 
   // ensure the target is within the bounds of the array
   if (target < array[start] || target > array[end]) return null
 
   const middle = (start + end) >> 1
+logger.debug(`binarySearchRecursive(array=${array},target=${target},start=${start},end=${end}): middle → ${middle}`);
 
   if (array[middle] === target) return middle // target found
   if (start > end) return null // target not found
 
   // if the target is less than the middle value, move the end pointer to be middle -1 to narrow the search space
   // otherwise, move the start pointer to be middle + 1
+logger.debug(`<<< Exiting binarySearchRecursive(array=${array},target=${target},start=${start},end=${end})`);
   return target < array[middle]
     ? binarySearchRecursive(array, target, start, middle - 1)
     : binarySearchRecursive(array, target, middle + 1, end)

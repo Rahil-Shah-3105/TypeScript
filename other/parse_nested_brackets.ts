@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function parseNestedBrackets
  * @description Parse nested brackets algorithm for a string.
@@ -21,6 +22,7 @@ export const parseNestedBrackets = (
   openBrackets = '<',
   closingBrackets = '>'
 ) => {
+logger.debug(`>>> Entering parseNestedBrackets(text=${text},openBrackets=${openBrackets})`);
   let array: string[] = [] // The array of the tags in this present floor.
   let prFloor = 0 // The present floor.
   let begin = 0, // The begin index of the tag.
@@ -34,6 +36,7 @@ export const parseNestedBrackets = (
         end = i
         const tag = text.slice(begin + 1, end)
         // push the tag in this present floor.
+		logger.debug(`parseNestedBrackets(text=${text},openBrackets=${openBrackets}): tag → ${tag}`);
         array.push(`${openBrackets}${tag}${closingBrackets}`)
         // push the array of the tags in the next floor.
         array = array.concat(
@@ -43,5 +46,6 @@ export const parseNestedBrackets = (
       prFloor--
     }
   }
+logger.debug(`<<< Exiting parseNestedBrackets(text=${text},openBrackets=${openBrackets})`);
   return array
 }
