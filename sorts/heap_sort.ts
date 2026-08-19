@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function heapsort
  * @description is a comparison-based sorting algorithm that uses a binary heap data structure to repeatedly select and remove the maximum (for max-heap) or minimum (for min-heap) element and place it at the end of the sorted array.
@@ -13,6 +14,7 @@
 
 // Function to perform the Heap Sort
 export const HeapSort = (arr: number[]): number[] => {
+logger.debug(`>>> Entering HeapSort(arr=${arr})`);
   buildMaxHeap(arr)
 
   for (let i = arr.length - 1; i > 0; i--) {
@@ -20,6 +22,7 @@ export const HeapSort = (arr: number[]): number[] => {
     heapify(arr, 0, i)
   }
 
+logger.debug(`<<< Exiting HeapSort(arr=${arr})`);
   return arr
 }
 
@@ -28,6 +31,8 @@ function buildMaxHeap(arr: number[]): void {
   const n = arr.length
 
   for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+	logger.debug(`>>> Entering buildMaxHeap(arr=${arr})`);
+	logger.debug(`<<< Exiting buildMaxHeap(arr=${arr})`);
     heapify(arr, i, n)
   }
 }
@@ -39,6 +44,8 @@ function heapify(arr: number[], index: number, size: number): void {
   const right = 2 * index + 2
 
   if (left < size && arr[left] > arr[largest]) {
+	logger.debug(`>>> Entering heapify(arr=${arr},index=${index},size=${size})`);
+	logger.debug(`<<< Exiting heapify(arr=${arr},index=${index},size=${size})`);
     largest = left
   }
 
@@ -54,7 +61,9 @@ function heapify(arr: number[], index: number, size: number): void {
 
 // Function to swap two elements in an array
 function swap(arr: number[], i: number, j: number): void {
+logger.debug(`>>> Entering swap(arr=${arr},i=${i},j=${j})`);
   const temp = arr[i]
   arr[i] = arr[j]
   arr[j] = temp
+logger.debug(`<<< Exiting swap(arr=${arr},i=${i},j=${j})`);
 }

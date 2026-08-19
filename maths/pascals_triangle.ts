@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Pascal's Triangle is an array of binomial coefficients. It can be used for unwrapping terms like
  * (a + b)^5.
@@ -15,6 +16,7 @@
  * @see https://en.wikipedia.org/wiki/Pascal's_triangle
  */
 export const pascalsTriangle = (n: number): number[] => {
+logger.debug(`>>> Entering pascalsTriangle(n=${n})`);
   const arr: number[][] = []
   for (let i: number = 0; i < n; i++) {
     if (i === 0) {
@@ -36,5 +38,6 @@ export const pascalsTriangle = (n: number): number[] => {
     arr.push(temp)
   }
 
+logger.debug(`<<< Exiting pascalsTriangle(n=${n})`);
   return arr[arr.length - 1]
 }

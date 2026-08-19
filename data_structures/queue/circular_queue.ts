@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Circular Queue implementation using array.
  *
@@ -14,10 +15,14 @@ export class CircularQueue<T> {
   private size: number
 
   constructor(size: number) {
+	logger.debug(`>>> Entering constructor(size=${size})`);
     this.queue = new Array(size)
     this.frontIndex = -1
     this.rearIndex = -1
     this.size = size
+	logger.debug(`constructor(size=${size}): this.frontIndex → ${this.frontIndex}`);
+	logger.debug(`constructor(size=${size}): this.size → ${this.size}`);
+	logger.debug(`<<< Exiting constructor(size=${size})`);
   }
 
   /**
@@ -30,17 +35,21 @@ export class CircularQueue<T> {
       (this.frontIndex == 0 && this.rearIndex == this.size - 1) ||
       this.rearIndex == (this.frontIndex - 1) % (this.size - 1)
     ) {
+	logger.debug(`>>> Entering enqueue(item=${item})`);
       throw new Error('Queue is full')
     } else if (this.frontIndex == -1) {
       this.frontIndex = 0
       this.rearIndex = 0
+	logger.debug(`enqueue(item=${item}): this.frontIndex → ${this.frontIndex}`);
       this.queue[this.rearIndex] = item
     } else if (this.rearIndex == this.size - 1 && this.frontIndex != 0) {
       this.rearIndex = 0
+	logger.debug(`enqueue(item=${item}): this.rearIndex → ${this.rearIndex}`);
       this.queue[this.rearIndex] = item
     } else {
       this.rearIndex++
       this.queue[this.rearIndex] = item
+	logger.debug(`<<< Exiting enqueue(item=${item})`);
     }
   }
 
@@ -52,6 +61,7 @@ export class CircularQueue<T> {
    */
   dequeue(): T | undefined {
     if (this.frontIndex == -1) {
+	logger.debug('>>> Entering dequeue()');
       throw new Error('Queue is empty')
     }
 
@@ -59,12 +69,15 @@ export class CircularQueue<T> {
     if (this.frontIndex == this.rearIndex) {
       this.frontIndex = -1
       this.rearIndex = -1
+	logger.debug(`dequeue(): this.frontIndex → ${this.frontIndex}`);
     } else if (this.frontIndex == this.size - 1) {
       this.frontIndex = 0
+	logger.debug(`dequeue(): this.rearIndex → ${this.rearIndex}`);
     } else {
       this.frontIndex++
     }
 
+	logger.debug('<<< Exiting dequeue()');
     return item
   }
 
@@ -75,9 +88,11 @@ export class CircularQueue<T> {
    */
   peek(): T | null | undefined {
     if (this.frontIndex == -1) {
+	logger.debug('>>> Entering peek()');
       return null
     }
 
+	logger.debug('<<< Exiting peek()');
     return this.queue[this.frontIndex]
   }
 
@@ -87,6 +102,8 @@ export class CircularQueue<T> {
    * @returns {boolean} Whether the queue is empty or not.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return this.frontIndex == -1
   }
 
@@ -97,6 +114,7 @@ export class CircularQueue<T> {
    */
   length(): number {
     if (this.frontIndex == -1) {
+	logger.debug('>>> Entering length()');
       return 0
     }
 
@@ -104,6 +122,7 @@ export class CircularQueue<T> {
       return this.rearIndex - this.frontIndex + 1
     }
 
+	logger.debug('<<< Exiting length()');
     return this.size - (this.frontIndex - this.rearIndex - 1)
   }
 }

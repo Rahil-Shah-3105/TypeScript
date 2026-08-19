@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function sieveOfEratosthenes
  * @description Find the prime numbers between 2 and n
@@ -10,10 +11,13 @@
 
 export function sieveOfEratosthenes(n: number): number[] {
   if (n < 0 || !Number.isInteger(n)) {
+	logger.debug(`>>> Entering sieveOfEratosthenes(n=${n})`);
+	logger.debug(`<<< Exiting sieveOfEratosthenes(n=${n})`);
     throw new Error('Only natural numbers are supported')
   }
   const numbers = new Array<boolean>(n + 1).fill(true)
   const primeNumbers: number[] = []
+logger.debug(`sieveOfEratosthenes(n=${n}): numbers → ${numbers}`);
   for (let i = 2; i <= n; i++) {
     if (numbers[i]) {
       primeNumbers.push(i)

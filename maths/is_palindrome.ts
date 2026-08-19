@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A function to see if a number is a palindrome.
  * Note that if the reversed number is larger than MAX_SAFE_INTEGER, rounding errors may occur and the result may be incorrect.
@@ -17,5 +18,6 @@ export const isPalindrome = (number: number): boolean => {
     number = Math.floor(number / 10)
   }
 
+logger.debug(`<<< Exiting isPalindrome(number=${number})`);
   return number === reversed || number === Math.floor(reversed / 10)
 }

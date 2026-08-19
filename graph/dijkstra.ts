@@ -1,3 +1,4 @@
+const logger = console;
 import { PriorityQueue } from '../data_structures/heap/heap'
 /**
  * @function dijkstra
@@ -14,6 +15,7 @@ export const dijkstra = (
   graph: [number, number][][],
   start: number
 ): number[] => {
+logger.debug(`>>> Entering dijkstra(graph=${graph},start=${start})`);
   // We use a priority queue to make sure we always visit the closest node. The
   // queue makes comparisons based on path weights.
   const priorityQueue = new PriorityQueue(
@@ -27,12 +29,15 @@ export const dijkstra = (
   )
   priorityQueue.insert([start, 0])
   // We save the shortest distance to each node in `distances`. If a node is
+logger.debug(`dijkstra(graph=${graph},start=${start}): priorityQueue → ${priorityQueue}`);
   // unreachable from the start node, its distance is Infinity.
   const distances = Array(graph.length).fill(Infinity)
   distances[start] = 0
+logger.debug(`dijkstra(graph=${graph},start=${start}): distances → ${distances}`);
 
   while (priorityQueue.size() > 0) {
     const node = priorityQueue.extract()[0]
+	logger.debug(`dijkstra(graph=${graph},start=${start}): node → ${node}`);
     graph[node].forEach(([child, weight]) => {
       const new_distance = distances[node] + weight
       if (new_distance < distances[child]) {
@@ -44,5 +49,6 @@ export const dijkstra = (
     })
   }
 
+logger.debug(`<<< Exiting dijkstra(graph=${graph},start=${start})`);
   return distances
 }

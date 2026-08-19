@@ -1,3 +1,4 @@
+const logger = console;
 export interface CoinChange {
   minCoins: number
   coins: number[]
@@ -11,6 +12,7 @@ export interface CoinChange {
  * @returns CoinChange, the minimum number of coins, and which coins are selected
  */
 export const coinChange = (money: number, coins: number[]): CoinChange => {
+logger.debug(`>>> Entering coinChange(money=${money},coins=${coins})`);
   const minCoins: number[] = Array(money + 1).fill(Infinity)
   const lastCoin: number[] = Array(money + 1).fill(-1)
 
@@ -39,5 +41,6 @@ export const coinChange = (money: number, coins: number[]): CoinChange => {
     total -= lastCoin[total]
   }
 
+logger.debug(`<<< Exiting coinChange(money=${money},coins=${coins})`);
   return res
 }

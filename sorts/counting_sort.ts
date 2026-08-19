@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @author dev-madhurendra
  * Counting sort is an algorithm for sorting a collection
@@ -9,10 +10,12 @@
  */
 
 export const countingSort = (inputArr: number[], min: number, max: number) => {
+logger.debug(`>>> Entering countingSort(inputArr=${inputArr},min=${min},max=${max})`);
   const sortedArr = []
 
   const count = new Array(max - min + 1).fill(0)
 
+logger.debug(`countingSort(inputArr=${inputArr},min=${min},max=${max}): count → ${count}`);
   for (const element of inputArr) count[element - min]++
 
   count[0] -= 1
@@ -24,5 +27,6 @@ export const countingSort = (inputArr: number[], min: number, max: number) => {
     count[inputArr[i] - min]--
   }
 
+logger.debug(`<<< Exiting countingSort(inputArr=${inputArr},min=${min},max=${max})`);
   return sortedArr
 }

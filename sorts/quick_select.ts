@@ -1,3 +1,4 @@
+const logger = console;
 import { partition } from './quick_sort'
 /**
  * @function QuickSelect
@@ -16,6 +17,7 @@ export const QuickSelect = (
   left: number = 0,
   right: number = array.length - 1
 ): number => {
+logger.debug(`>>> Entering QuickSelect(array=${array},k=${k},left=${left},right=${right})`);
   if (k < 0 || k >= array.length) {
     throw new Error('k is out of bounds')
   }
@@ -27,6 +29,7 @@ export const QuickSelect = (
   // Partition the array
   const pivotIndex = partition(array, left, right)
 
+logger.debug(`QuickSelect(array=${array},k=${k},left=${left},right=${right}): pivotIndex → ${pivotIndex}`);
   // The pivot is in its final sorted position
   if (k === pivotIndex) {
     return array[k]
@@ -35,6 +38,7 @@ export const QuickSelect = (
     return QuickSelect(array, k, left, pivotIndex - 1)
   } else {
     // If k is greater than the pivot index, look right
+logger.debug(`<<< Exiting QuickSelect(array=${array},k=${k},left=${left},right=${right})`);
     return QuickSelect(array, k, pivotIndex + 1, right)
   }
 }

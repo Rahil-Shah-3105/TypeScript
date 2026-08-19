@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function absoluteValue
  * @description Calculate the absolute value of an input number.
@@ -10,7 +11,9 @@
  */
 
 export const absoluteValue = (number: number): number => {
+logger.debug(`>>> Entering absoluteValue(number=${number})`);
   // if input number is less than 0, convert it to positive via double negation
   // e.g. if n = -2, then return -(-2) = 2
+logger.debug(`<<< Exiting absoluteValue(number=${number})`);
   return number < 0 ? -number : number
 }

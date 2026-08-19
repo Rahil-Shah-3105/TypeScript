@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function HexagonalNumbers
  * @description To generate the requested number of hexagonal numbers
@@ -15,6 +16,7 @@
  * @example HexagonalNumbers(15) =  [ 1, 6, 15, 28, 45, 66, 91, 120, 153, 190, 231, 276, 325, 378, 435 ]
  */
 export const HexagonalNumbers = (n: number): number[] => {
+logger.debug(`>>> Entering HexagonalNumbers(n=${n})`);
   if (isNaN(n)) throw new Error('The input needs to be a number')
   if (!Number.isInteger(n) || n < 0)
     throw new Error('The input needs to be a non-negative integer')
@@ -24,5 +26,6 @@ export const HexagonalNumbers = (n: number): number[] => {
     hexagonalNumbers.push(i * (2 * i - 1))
   }
 
+logger.debug(`<<< Exiting HexagonalNumbers(n=${n})`);
   return hexagonalNumbers
 }
