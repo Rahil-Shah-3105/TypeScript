@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function linearSearch
  * @description linear search is the simplest search possible in a array
@@ -11,8 +12,10 @@
  * @example linearSearch([1,5,6], 2) => -1
  */
 export const linearSearch = (array: any[], target: any): number => {
+logger.debug(`>>> Entering linearSearch(array=${array},target=${target})`);
   for (let i = 0; i < array.length; i++) {
     if (array[i] === target) return i
   }
+logger.debug(`<<< Exiting linearSearch(array=${array},target=${target})`);
   return -1
 }

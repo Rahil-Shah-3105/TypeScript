@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function armstrongNumber
  * @description Check if the provided number is an Armstrong number or not.
@@ -14,16 +15,19 @@
  * @example armstrongNumber(10) = false
  */
 export const armstrongNumber = (num: number): boolean => {
+logger.debug(`>>> Entering armstrongNumber(num=${num})`);
   if (typeof num !== 'number' || num <= 0) return false
 
   let compNum = 0
   let cloneNum = num
   const numOfDigits = Math.floor(1 + Math.log10(num))
 
+logger.debug(`armstrongNumber(num=${num}): numOfDigits → ${numOfDigits}`);
   while (cloneNum > 0) {
     compNum += Math.pow(cloneNum % 10, numOfDigits)
     cloneNum = Math.floor(cloneNum / 10)
   }
 
+logger.debug(`<<< Exiting armstrongNumber(num=${num})`);
   return compNum === num
 }

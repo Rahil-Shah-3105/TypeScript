@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function numberOfDigits
  * @description Calculate the number of digits of a natural number.
@@ -10,9 +11,11 @@
  */
 
 export const numberOfDigits = (num: number): number => {
+logger.debug(`>>> Entering numberOfDigits(num=${num})`);
   if (num <= 0 || !Number.isInteger(num)) {
     throw new Error('only natural numbers are supported')
   }
 
+logger.debug(`<<< Exiting numberOfDigits(num=${num})`);
   return Math.floor(Math.log10(num)) + 1
 }

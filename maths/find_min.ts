@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function findMin
  * @description Find the minimum in an array of numbers.
@@ -10,6 +11,7 @@
  * @example findMin([1,0.1,-1]) = -1
  */
 export const findMin = (nums: number[]): number => {
+logger.debug(`>>> Entering findMin(nums=${nums})`);
   if (nums.length === 0) {
     throw new Error('array must have length of 1 or greater')
   }
@@ -21,5 +23,6 @@ export const findMin = (nums: number[]): number => {
     }
   }
 
+logger.debug(`<<< Exiting findMin(nums=${nums})`);
   return minimumSeen
 }

@@ -1,3 +1,4 @@
+const logger = console;
 import { SinglyLinkedList } from '../list/singly_linked_list'
 
 /**
@@ -14,8 +15,10 @@ export class LinkedListStack<T> {
    * Creates a new stack object.
    */
   constructor(limit: number = Number.MAX_VALUE) {
+	logger.debug(`>>> Entering constructor(limit=${limit})`);
     this.list = new SinglyLinkedList<T>()
     this.limit = limit
+	logger.debug(`constructor(limit=${limit}): this.limit → ${this.limit}`);
   }
 
   /**
@@ -26,9 +29,11 @@ export class LinkedListStack<T> {
    */
   top(): T | null {
     if (this.list.isEmpty()) {
+	logger.debug('>>> Entering top()');
       return null
     }
 
+	logger.debug('<<< Exiting top()');
     return this.list.get(0)!
   }
 
@@ -41,10 +46,12 @@ export class LinkedListStack<T> {
    */
   push(data: T): void {
     if (this.list.getLength() + 1 > this.limit) {
+	logger.debug(`>>> Entering push(data=${data})`);
       throw new Error('Stack overflow')
     }
 
     this.list.push(data)
+	logger.debug(`<<< Exiting push(data=${data})`);
   }
 
   /**
@@ -56,9 +63,11 @@ export class LinkedListStack<T> {
    */
   pop(): T {
     if (this.list.isEmpty()) {
+	logger.debug('>>> Entering pop()');
       throw new Error('Stack underflow')
     }
 
+	logger.debug('<<< Exiting pop()');
     return this.list.pop()
   }
 
@@ -68,6 +77,8 @@ export class LinkedListStack<T> {
    * @returns The amount of elements in the stack.
    */
   length(): number {
+	logger.debug('>>> Entering length()');
+	logger.debug('<<< Exiting length()');
     return this.list.getLength()
   }
 
@@ -77,6 +88,8 @@ export class LinkedListStack<T> {
    * @returns Whether the stack is empty or not.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return this.list.isEmpty()
   }
 }

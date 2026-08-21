@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @description counts the positive integers up to a given integer n that are relatively prime to n.
  * @param {number} n - A natural number.
@@ -7,6 +8,7 @@
  * @example phi(5) = 4
  */
 export const phi = (n: number): number => {
+logger.debug(`>>> Entering phi(n=${n})`);
   let result: number = n
   for (let i = 2; i * i <= n; i++) {
     if (n % i == 0) {

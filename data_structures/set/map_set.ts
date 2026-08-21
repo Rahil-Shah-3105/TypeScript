@@ -1,3 +1,4 @@
+const logger = console;
 import { Map } from './map'
 import { Set } from './set'
 
@@ -12,7 +13,9 @@ export abstract class MapSet<K> implements Set<K> {
   private map: Map<K, null>
 
   constructor() {
+	logger.debug('>>> Entering constructor()');
     this.map = this.initMap()
+	logger.debug('<<< Exiting constructor()');
   }
 
   /**
@@ -26,7 +29,9 @@ export abstract class MapSet<K> implements Set<K> {
    * @param value The value to add to the set.
    */
   add(value: K): void {
+	logger.debug(`>>> Entering add(value=${value})`);
     this.map.set(value, null)
+	logger.debug(`<<< Exiting add(value=${value})`);
   }
 
   /**
@@ -35,7 +40,9 @@ export abstract class MapSet<K> implements Set<K> {
    * @param value The value to remove from the set.
    */
   delete(value: K): void {
+	logger.debug(`>>> Entering delete(value=${value})`);
     this.map.delete(value)
+	logger.debug(`<<< Exiting delete(value=${value})`);
   }
 
   /**
@@ -45,6 +52,8 @@ export abstract class MapSet<K> implements Set<K> {
    * @returns Whether the set contains the value.
    */
   has(value: K): boolean {
+	logger.debug(`>>> Entering has(value=${value})`);
+	logger.debug(`<<< Exiting has(value=${value})`);
     return this.map.has(value)
   }
 
@@ -52,7 +61,9 @@ export abstract class MapSet<K> implements Set<K> {
    * Removes all elements from the set.
    */
   clear(): void {
+	logger.debug('>>> Entering clear()');
     this.map.clear()
+	logger.debug('<<< Exiting clear()');
   }
 
   /**
@@ -61,6 +72,8 @@ export abstract class MapSet<K> implements Set<K> {
    * @returns An array of all the values in the set.
    */
   values(): K[] {
+	logger.debug('>>> Entering values()');
+	logger.debug('<<< Exiting values()');
     return this.map.keys()
   }
 
@@ -70,6 +83,8 @@ export abstract class MapSet<K> implements Set<K> {
    * @returns The number of elements in the set.
    */
   getSize(): number {
+	logger.debug('>>> Entering getSize()');
+	logger.debug('<<< Exiting getSize()');
     return this.map.getSize()
   }
 }

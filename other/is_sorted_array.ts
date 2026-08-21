@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function isSortedArray
  * @description Checks if the array is sorted.
@@ -8,7 +9,9 @@
  */
 export function isSortedArray(arr: number[]): boolean {
   for (let i = 0; i < arr.length - 1; i++) {
+	logger.debug(`>>> Entering isSortedArray(arr=${arr})`);
     if (arr[i] >= arr[i + 1]) {
+	logger.debug(`<<< Exiting isSortedArray(arr=${arr})`);
       return false
     }
   }

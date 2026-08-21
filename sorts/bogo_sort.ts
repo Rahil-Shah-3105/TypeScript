@@ -1,3 +1,4 @@
+const logger = console;
 import { isSortedArray } from '../other/is_sorted_array'
 import { shuffleArray } from '../other/shuffle_array'
 
@@ -23,6 +24,8 @@ import { shuffleArray } from '../other/shuffle_array'
  */
 export function bogoSort(arr: number[]): number[] {
   while (!isSortedArray(arr)) {
+	logger.debug(`>>> Entering bogoSort(arr=${arr})`);
+	logger.debug(`<<< Exiting bogoSort(arr=${arr})`);
     shuffleArray(arr)
   }
   return arr

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * This is an array-based implementation of a Queue.
  * A Queue is a data structure that follows the FIFO (First In First Out) principle.
@@ -14,6 +15,8 @@ export class ArrayQueue<T> implements Queue<T> {
    * @returns {number} The number of items in the queue.
    */
   length(): number {
+	logger.debug('>>> Entering length()');
+	logger.debug('<<< Exiting length()');
     return this.queue.length
   }
 
@@ -23,6 +26,8 @@ export class ArrayQueue<T> implements Queue<T> {
    * @returns {boolean} Whether the queue is empty or not.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return this.queue.length === 0
   }
 
@@ -32,7 +37,9 @@ export class ArrayQueue<T> implements Queue<T> {
    * @param item The item being added to the queue.
    */
   enqueue(item: T): void {
+	logger.debug(`>>> Entering enqueue(item=${item})`);
     this.queue.push(item)
+	logger.debug(`<<< Exiting enqueue(item=${item})`);
   }
 
   /**
@@ -43,9 +50,11 @@ export class ArrayQueue<T> implements Queue<T> {
    */
   dequeue(): T {
     if (this.isEmpty()) {
+	logger.debug('>>> Entering dequeue()');
       throw new Error('Queue Underflow')
     }
 
+	logger.debug('<<< Exiting dequeue()');
     return this.queue.shift() as T
   }
 
@@ -56,9 +65,11 @@ export class ArrayQueue<T> implements Queue<T> {
    */
   peek(): T | null {
     if (this.isEmpty()) {
+	logger.debug('>>> Entering peek()');
       return null
     }
 
+	logger.debug('<<< Exiting peek()');
     return this.queue[0]
   }
 }

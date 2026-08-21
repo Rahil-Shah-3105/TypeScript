@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function isDivisible
  * @description Checks is number is divisible by another number without remainder.
@@ -9,8 +10,10 @@
  */
 
 export const isDivisible = (num1: number, num2: number): boolean => {
+logger.debug(`>>> Entering isDivisible(num1=${num1},num2=${num2})`);
   if (num2 === 0) {
     throw new Error('Cannot divide by 0')
   }
+logger.debug(`<<< Exiting isDivisible(num1=${num1},num2=${num2})`);
   return num1 % num2 === 0
 }

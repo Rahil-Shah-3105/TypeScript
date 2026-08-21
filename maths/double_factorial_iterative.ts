@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function DoubleFactorialIterative
  * @description Calculate the double factorial of a number (iterative implementation)
@@ -17,11 +18,13 @@
  * @example DoubleFactorialIterative(5) = 15
  */
 const DoubleFactorialIterative = (n: number) => {
+logger.debug(`>>> Entering DoubleFactorialIterative(n=${n})`);
   if (n < 0) throw new RangeError('The number needs to be non-negative')
   let doubleFactorial = 1
 
   for (let i = n; i > 0; i -= 2) doubleFactorial *= i
 
+logger.debug(`<<< Exiting DoubleFactorialIterative(n=${n})`);
   return doubleFactorial
 }
 
