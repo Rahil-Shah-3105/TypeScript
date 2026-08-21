@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @description Get exponenets of each prime number in factorization of a number n
  * @param {number} n - A natural number.
@@ -7,6 +8,7 @@
  * @example factorize(5) = Map {5 => 1}
  */
 export const factorize = (n: number): Map<number, number> => {
+logger.debug(`>>> Entering factorize(n=${n})`);
   const result: Map<number, number> = new Map()
 
   for (let i = 2; i * i <= n; i++) {
@@ -20,6 +22,7 @@ export const factorize = (n: number): Map<number, number> => {
   if (n > 1) {
     let occurence = result.get(n)
     if (!occurence) occurence = 0
+	logger.debug(`factorize(n=${n}): occurence → ${occurence}`);
     result.set(n, occurence + 1)
   }
 

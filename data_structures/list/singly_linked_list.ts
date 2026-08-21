@@ -1,3 +1,4 @@
+const logger = console;
 import { LinkedList } from './linked_list'
 
 /**
@@ -45,6 +46,8 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @returns Whether the list is empty or not.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return !this.head
   }
 
@@ -57,6 +60,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    */
   get(index: number): T | null {
     if (index < 0 || index >= this.length) {
+	logger.debug(`>>> Entering get(index=${index})`);
       return null
     }
 
@@ -73,6 +77,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
       currentNode = currentNode.next
     }
 
+	logger.debug(`<<< Exiting get(index=${index})`);
     return currentNode.data
   }
 
@@ -86,10 +91,13 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     const node: ListNode<T> = new ListNode<T>(data)
 
     if (this.isEmpty()) {
+	logger.debug(`>>> Entering push(data=${data})`);
       this.head = node
       this.tail = node
     } else {
       node.next = this.head
+	logger.debug(`push(data=${data}): this.tail → ${this.tail}`);
+	logger.debug(`push(data=${data}): node.next → ${node.next}`);
       this.head = node
     }
 
@@ -105,6 +113,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    */
   pop(): T {
     if (this.isEmpty()) {
+	logger.debug('>>> Entering pop()');
       throw new Error('Index out of bounds')
     }
 
@@ -112,6 +121,8 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     this.head = this.head!.next
     this.length--
 
+	logger.debug(`pop(): this.head → ${this.head}`);
+	logger.debug('<<< Exiting pop()');
     return node.data
   }
 
@@ -125,12 +136,15 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     const node: ListNode<T> = new ListNode<T>(data)
 
     if (this.isEmpty()) {
+	logger.debug(`>>> Entering append(data=${data})`);
       this.head = node
     } else {
+	logger.debug(`append(data=${data}): this.head → ${this.head}`);
       this.tail!.next = node
     }
 
     this.tail = node
+	logger.debug(`append(data=${data}): this.tail → ${this.tail}`);
     this.length++
   }
 
@@ -143,6 +157,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    */
   removeTail(): T {
     if (!this.head) {
+	logger.debug('>>> Entering removeTail()');
       throw new Error('Index out of bounds')
     }
 
@@ -150,8 +165,10 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     if (this.head === this.tail) {
       this.head = undefined
       this.tail = undefined
+	logger.debug(`removeTail(): this.head → ${this.head}`);
       this.length--
 
+	logger.debug(`removeTail(): this.tail → ${this.tail}`);
       return currentTail!.data
     }
 
@@ -163,6 +180,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     this.tail = currentNode
     this.length--
 
+	logger.debug('<<< Exiting removeTail()');
     return currentTail!.data
   }
 
@@ -176,6 +194,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    */
   insertAt(index: number, data: T): void {
     if (index < 0 || index > this.length) {
+	logger.debug(`>>> Entering insertAt(index=${index},data=${data})`);
       throw new Error('Index out of bounds')
     }
 
@@ -193,6 +212,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
 
     const newNode = new ListNode<T>(data)
     let currentNode: ListNode<T> | undefined = this.head
+	logger.debug(`insertAt(index=${index},data=${data}): newNode → ${newNode}`);
     for (let i: number = 0; i < index - 1; i++) {
       currentNode = currentNode?.next
     }
@@ -200,6 +220,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     const nextNode = currentNode?.next
     currentNode!.next = newNode
     newNode.next = nextNode
+	logger.debug(`insertAt(index=${index},data=${data}): newNode.next → ${newNode.next}`);
 
     this.length++
   }
@@ -214,6 +235,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    */
   removeAt(index: number): T {
     if (index < 0 || index >= this.length) {
+	logger.debug(`>>> Entering removeAt(index=${index})`);
       throw new Error('Index out of bounds')
     }
 
@@ -238,6 +260,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     previousNode!.next = currentNode?.next
     this.length--
 
+	logger.debug(`<<< Exiting removeAt(index=${index})`);
     return currentNode!.data
   }
 
@@ -245,9 +268,11 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * Clears the list.
    */
   clear(): void {
+	logger.debug('>>> Entering clear()');
     this.head = undefined
     this.tail = undefined
     this.length = 0
+	logger.debug(`clear(): this.length → ${this.length}`);
   }
 
   /**
@@ -260,10 +285,12 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     let currentNode: ListNode<T> | undefined = this.head
 
     while (currentNode) {
+	logger.debug('>>> Entering toArray()');
       array.push(currentNode.data)
       currentNode = currentNode.next
     }
 
+	logger.debug('<<< Exiting toArray()');
     return array
   }
 
@@ -273,6 +300,8 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @returns The length of the list.
    */
   getLength(): number {
+	logger.debug('>>> Entering getLength()');
+	logger.debug('<<< Exiting getLength()');
     return this.length
   }
 }

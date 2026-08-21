@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A Stack Based Queue Implementation.
  * The Queue data structure which follows the FIFO (First in First Out) rule.
@@ -20,6 +21,8 @@ export class StackQueue<T> implements Queue<T> {
    * @returns {number} the length of the Queue
    */
   length(): number {
+	logger.debug('>>> Entering length()');
+	logger.debug('<<< Exiting length()');
     return this.enqueueStack.length() + this.dequeueStack.length()
   }
 
@@ -29,6 +32,8 @@ export class StackQueue<T> implements Queue<T> {
    * @returns {boolean} Whether the queue is empty or not.
    */
   isEmpty(): boolean {
+	logger.debug('>>> Entering isEmpty()');
+	logger.debug('<<< Exiting isEmpty()');
     return this.enqueueStack.isEmpty() && this.dequeueStack.isEmpty()
   }
 
@@ -38,7 +43,9 @@ export class StackQueue<T> implements Queue<T> {
    * @param item The item being added to the queue.
    */
   enqueue(item: T): void {
+	logger.debug(`>>> Entering enqueue(item=${item})`);
     this.enqueueStack.push(item)
+	logger.debug(`<<< Exiting enqueue(item=${item})`);
   }
 
   /**
@@ -49,6 +56,7 @@ export class StackQueue<T> implements Queue<T> {
    */
   private shift(): void {
     while (!this.enqueueStack.isEmpty()) {
+	logger.debug('>>> Entering shift()');
       const enqueueStackTop = this.enqueueStack.pop()
       this.dequeueStack.push(enqueueStackTop)
     }
@@ -62,6 +70,7 @@ export class StackQueue<T> implements Queue<T> {
    */
   dequeue(): T {
     if (this.isEmpty()) {
+	logger.debug('>>> Entering dequeue()');
       throw new Error('Queue Underflow')
     }
 
@@ -69,6 +78,7 @@ export class StackQueue<T> implements Queue<T> {
       this.shift()
     }
 
+	logger.debug('<<< Exiting dequeue()');
     return this.dequeueStack.pop()
   }
 
@@ -79,6 +89,7 @@ export class StackQueue<T> implements Queue<T> {
    */
   peek(): T | null {
     if (this.isEmpty()) {
+	logger.debug('>>> Entering peek()');
       return null
     }
 
@@ -86,6 +97,7 @@ export class StackQueue<T> implements Queue<T> {
       this.shift()
     }
 
+	logger.debug('<<< Exiting peek()');
     return this.dequeueStack.top()
   }
 }

@@ -1,3 +1,4 @@
+const logger = console;
 /** * A function to get degrees from the radians
  * @param {number} radians - The input integer
  * @return {number} degrees of radians
@@ -7,5 +8,7 @@
  */
 
 export const radiansToDegrees = (radians: number): number => {
+logger.debug(`>>> Entering radiansToDegrees(radians=${radians})`);
+logger.debug(`<<< Exiting radiansToDegrees(radians=${radians})`);
   return (radians * 180) / Math.PI
 }

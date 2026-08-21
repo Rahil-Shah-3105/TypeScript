@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A function to get nth Fibonacci number.
  *
@@ -22,6 +23,7 @@ function* generateFibonacci(): Generator<number> {
 }
 
 export const nthFibonacci = (number: number): number => {
+logger.debug(`>>> Entering nthFibonacci(number=${number})`);
   if (isNaN(number)) throw new Error('The input needs to be a number')
   if (!Number.isInteger(number) || number < 0)
     throw new Error('The input needs to be a non-negative integer')
@@ -32,9 +34,11 @@ export const nthFibonacci = (number: number): number => {
 
   const fibonacciGenerator = generateFibonacci()
   let result = 0
+logger.debug(`nthFibonacci(number=${number}): fibonacciGenerator → ${fibonacciGenerator}`);
   for (let i = 0; i <= number; ++i) {
     result = fibonacciGenerator.next().value
   }
+logger.debug(`nthFibonacci(number=${number}): result → ${result}`);
   return result
 }
 
@@ -51,11 +55,13 @@ export const nthFibonacci = (number: number): number => {
  * @author zFlxw <https://github.com/zFlxw>
  */
 export const nthFibonacciRecursively = (number: number): number => {
+logger.debug(`>>> Entering nthFibonacciRecursively(number=${number})`);
   if (number === 0) {
     return 0
   }
 
   if (number <= 2) {
+logger.debug(`<<< Exiting nthFibonacciRecursively(number=${number})`);
     return 1
   }
 

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function digitSum
  * @description Calculate the sum of all digits of a natural number (number base 10).
@@ -9,6 +10,7 @@
  */
 
 export const digitSum = (num: number): number => {
+logger.debug(`>>> Entering digitSum(num=${num})`);
   if (num < 0 || !Number.isInteger(num)) {
     throw new Error('only natural numbers are supported')
   }
@@ -19,5 +21,6 @@ export const digitSum = (num: number): number => {
     num = Math.floor(num / 10)
   }
 
+logger.debug(`<<< Exiting digitSum(num=${num})`);
   return sum
 }

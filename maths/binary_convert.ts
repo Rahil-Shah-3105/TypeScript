@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function binaryConvert
  * @description Convert the decimal to binary.
@@ -9,12 +10,15 @@
  */
 
 export const binaryConvert = (num: number): string => {
+logger.debug(`>>> Entering binaryConvert(num=${num})`);
   let binary = ''
 
+logger.debug(`binaryConvert(num=${num}): binary → ${binary}`);
   while (num !== 0) {
     binary = (num % 2) + binary
     num = Math.floor(num / 2)
   }
 
+logger.debug(`<<< Exiting binaryConvert(num=${num})`);
   return binary
 }
