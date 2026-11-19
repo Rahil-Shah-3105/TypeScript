@@ -37,6 +37,7 @@ export class Trie {
       node = node.children[char]
     }
     node.isWord = true
+	logger.debug(`insertNode(node=${node},word=${word}): node.isWord → ${node.isWord}`, { "event.action": "insertNode", "logrite.node": node, "logrite.word": word });
 	logger.warn(`<<< Exiting insertNode(node=${node},word=${word})`, { "event.action": "insertNode", "logrite.node": node, "logrite.word": word });
   }
 

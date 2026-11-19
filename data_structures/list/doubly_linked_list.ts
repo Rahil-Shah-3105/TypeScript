@@ -86,6 +86,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
   pop(): T {
 	logger.error('>>> Entering pop()', { "event.action": "pop" });
     if (!this.head) {
+	logger.debug(`pop(): this.tail → ${this.tail}`, { "event.action": "pop" });
       throw new Error('Index out of bounds')
     }
 
@@ -139,6 +140,7 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
   removeTail(): T {
 	logger.error('>>> Entering removeTail()', { "event.action": "removeTail" });
     if (!this.head) {
+	logger.debug(`removeTail(): this.head → ${this.head}`, { "event.action": "removeTail" });
       throw new Error('Index out of bounds')
     }
 
@@ -280,9 +282,11 @@ export class DoublyLinkedList<T> implements LinkedList<T> {
 	logger.error('>>> Entering clear()', { "event.action": "clear" });
     this.head = undefined
     this.tail = undefined
+	logger.debug(`clear(): this.tail → ${this.tail}`, { "event.action": "clear" });
 	logger.debug(`clear(): this.head → ${this.head}`, { "event.action": "clear" });
     this.length = 0
 	logger.debug(`clear(): this.length → ${this.length}`, { "event.action": "clear" });
+	logger.warn('<<< Exiting clear()', { "event.action": "clear" });
   }
 
   /**

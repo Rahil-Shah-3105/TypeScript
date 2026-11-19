@@ -140,6 +140,7 @@ export class HashMap<K, V> implements Map<K, V> {
     this.size = 0
     this.initializeBuckets(16)
 	logger.debug(`clear(): this.size → ${this.size}`, { "event.action": "clear" });
+	logger.warn('<<< Exiting clear()', { "event.action": "clear" });
   }
 
   /**

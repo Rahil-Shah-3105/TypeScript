@@ -39,6 +39,7 @@ logger.error(`nthFibonacci(number=${number}): fibonacciGenerator → ${fibonacci
     result = fibonacciGenerator.next().value
   }
 logger.error(`nthFibonacci(number=${number}): result → ${result}`, { "event.action": "nthFibonacci", "logrite.number": number });
+logger.warn(`<<< Exiting nthFibonacci(number=${number})`, { "event.action": "nthFibonacci", "logrite.number": number });
   return result
 }
 

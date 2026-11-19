@@ -48,8 +48,10 @@ export class Edge {
 	logger.error(`>>> Entering constructor(a=${a},b=${b},weight=${weight})`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
     this.a = a
     this.b = b
+	logger.debug(`constructor(a=${a},b=${b},weight=${weight}): this.b → ${this.b}`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
 	logger.debug(`constructor(a=${a},b=${b},weight=${weight}): this.a → ${this.a}`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
     this.weight = weight
 	logger.debug(`constructor(a=${a},b=${b},weight=${weight}): this.weight → ${this.weight}`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
+	logger.warn(`<<< Exiting constructor(a=${a},b=${b},weight=${weight})`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
   }
 }

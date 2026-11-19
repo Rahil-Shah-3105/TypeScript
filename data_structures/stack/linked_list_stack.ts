@@ -19,6 +19,7 @@ export class LinkedListStack<T> {
     this.list = new SinglyLinkedList<T>()
     this.limit = limit
 	logger.debug(`constructor(limit=${limit}): this.limit → ${this.limit}`, { "event.action": "constructor", "logrite.limit": limit });
+	logger.warn(`<<< Exiting constructor(limit=${limit})`, { "event.action": "constructor", "logrite.limit": limit });
   }
 
   /**

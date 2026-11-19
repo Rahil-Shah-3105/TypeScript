@@ -23,5 +23,6 @@ logger.error(`>>> Entering binomialCoefficient(n=${n},k=${k})`, { "event.action"
   const numerator = factorial(n)
   const denominator = factorial(k) * factorial(n - k)
 logger.error(`binomialCoefficient(n=${n},k=${k}): numerator → ${numerator}`, { "event.action": "binomialCoefficient", "logrite.n": n, "logrite.k": k });
+logger.warn(`<<< Exiting binomialCoefficient(n=${n},k=${k})`, { "event.action": "binomialCoefficient", "logrite.n": n, "logrite.k": k });
   return numerator / denominator
 }
