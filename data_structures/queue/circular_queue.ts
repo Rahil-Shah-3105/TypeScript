@@ -19,9 +19,11 @@ export class CircularQueue<T> {
     this.queue = new Array(size)
     this.frontIndex = -1
     this.rearIndex = -1
+	logger.debug(`constructor(size=${size}): this.rearIndex → ${this.rearIndex}`, { "event.action": "constructor", "logrite.size": size });
 	logger.debug(`constructor(size=${size}): this.frontIndex → ${this.frontIndex}`, { "event.action": "constructor", "logrite.size": size });
     this.size = size
 	logger.debug(`constructor(size=${size}): this.size → ${this.size}`, { "event.action": "constructor", "logrite.size": size });
+	logger.warn(`<<< Exiting constructor(size=${size})`, { "event.action": "constructor", "logrite.size": size });
   }
 
   /**
@@ -61,6 +63,7 @@ export class CircularQueue<T> {
   dequeue(): T | undefined {
 	logger.error('>>> Entering dequeue()', { "event.action": "dequeue" });
     if (this.frontIndex == -1) {
+	logger.debug(`dequeue(): this.rearIndex → ${this.rearIndex}`, { "event.action": "dequeue" });
       throw new Error('Queue is empty')
     }
 

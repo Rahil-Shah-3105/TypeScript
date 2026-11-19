@@ -21,7 +21,9 @@ export class LinkedQueue<T> implements Queue<T> {
 	logger.error('>>> Entering constructor()', { "event.action": "constructor" });
     this.head = this.tail = undefined
     this.size = 0
+	logger.debug(`constructor(): this.size → ${this.size}`, { "event.action": "constructor" });
 	logger.debug(`constructor(): this.head → ${this.head}`, { "event.action": "constructor" });
+	logger.warn('<<< Exiting constructor()', { "event.action": "constructor" });
   }
 
   /**

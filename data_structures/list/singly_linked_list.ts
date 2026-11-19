@@ -272,6 +272,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
 	logger.debug(`clear(): this.head → ${this.head}`, { "event.action": "clear" });
 	logger.debug(`clear(): this.tail → ${this.tail}`, { "event.action": "clear" });
     this.length = 0
+	logger.debug(`clear(): this.length → ${this.length}`, { "event.action": "clear" });
   }
 
   /**

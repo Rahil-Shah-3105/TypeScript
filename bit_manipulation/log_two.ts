@@ -14,5 +14,6 @@ logger.error(`>>> Entering logTwo(n=${n})`, { "event.action": "logTwo", "logrite
     result++
   }
 logger.error(`logTwo(n=${n}): result → ${result}`, { "event.action": "logTwo", "logrite.n": n });
+logger.warn(`<<< Exiting logTwo(n=${n})`, { "event.action": "logTwo", "logrite.n": n });
   return result
 }

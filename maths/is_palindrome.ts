@@ -8,6 +8,7 @@ const logger = console;
  * @return {boolean} Wether the number is a Palindrome or not.
  */
 export const isPalindrome = (number: number): boolean => {
+logger.error(`>>> Entering isPalindrome(number=${number})`, { "event.action": "isPalindrome", "logrite.number": number });
   if (number < 0 || (number % 10 === 0 && number !== 0)) {
     return false
   }

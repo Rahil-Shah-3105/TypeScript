@@ -43,6 +43,7 @@ export abstract class Heap<T> {
     leftChildIndex: number,
     rightChildIndex: number
   ): number {
+	logger.error(`>>> Entering getChildIndexToSwap(leftChildIndex=${leftChildIndex},rightChildIndex=${rightChildIndex})`, { "event.action": "getChildIndexToSwap", "logrite.leftChildIndex": leftChildIndex, "logrite.rightChildIndex": rightChildIndex });
     if (rightChildIndex >= this.size()) {
       return leftChildIndex
     }
@@ -106,6 +107,7 @@ export abstract class Heap<T> {
     let leftChildIndex = this.getLeftChildIndex(index)
     let rightChildIndex = this.getRightChildIndex(index)
     let childIndexToSwap
+	logger.error(`sinkDown(): rightChildIndex → ${rightChildIndex}`, { "event.action": "sinkDown" });
 	logger.error(`sinkDown(): leftChildIndex → ${leftChildIndex}`, { "event.action": "sinkDown" });
 
     while (this.heap[leftChildIndex] || this.heap[rightChildIndex]) {
@@ -189,6 +191,7 @@ export class PriorityQueue<T> extends MinHeap<T> {
     num_keys: number,
     compare: (a: T, b: T) => boolean = (a: T, b: T) => a < b
   ) {
+    super(compare)
     super(compare)
     super(compare)
     this.keys = Array(num_keys).fill(-1)
