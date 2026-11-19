@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @description Fibonacci search algorithm for a sorted array.
  *
@@ -17,10 +18,14 @@ export const fibonacciSearch = (
   array: number[],
   target: number
 ): number | null => {
+logger.error(`>>> Entering fibonacciSearch(array=${array},target=${target})`, { "event.action": "fibonacciSearch", "logrite.array": array, "logrite.target": target });
   const arrayLength = array.length
   let a = 0 // (n-2)'th Fibonacci No.
+logger.error(`fibonacciSearch(array=${array},target=${target}): a → ${a}`, { "event.action": "fibonacciSearch", "logrite.array": array, "logrite.target": target });
   let b = 1 // (n-1)'th Fibonacci No.
+logger.error(`fibonacciSearch(array=${array},target=${target}): b → ${b}`, { "event.action": "fibonacciSearch", "logrite.array": array, "logrite.target": target });
   let c = a + b // n'th Fibonacci
+logger.error(`fibonacciSearch(array=${array},target=${target}): c → ${c}`, { "event.action": "fibonacciSearch", "logrite.array": array, "logrite.target": target });
 
   while (c < arrayLength) {
     a = b
@@ -53,5 +58,6 @@ export const fibonacciSearch = (
   }
 
   // Element not found then return null
+logger.warn(`<<< Exiting fibonacciSearch(array=${array},target=${target})`, { "event.action": "fibonacciSearch", "logrite.array": array, "logrite.target": target });
   return null
 }

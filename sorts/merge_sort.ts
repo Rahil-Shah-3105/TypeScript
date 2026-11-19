@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function mergeSort
  * @description keeps on dividing the list into equal halves until it can no more be divided. By definition, if it is only one element in the list, it is sorted.
@@ -16,18 +17,23 @@
  */
 
 export function mergeSort(array: number[]): number[] {
+logger.error(`>>> Entering mergeSort(array=${array})`, { "event.action": "mergeSort", "logrite.array": array });
   if (array.length <= 1) return array.slice()
 
   const midIndex = Math.floor(array.length / 2)
   const left = array.slice(0, midIndex)
   const right = array.slice(midIndex, array.length)
 
+logger.error(`mergeSort(array=${array}): midIndex → ${midIndex}`, { "event.action": "mergeSort", "logrite.array": array });
+logger.warn(`<<< Exiting mergeSort(array=${array})`, { "event.action": "mergeSort", "logrite.array": array });
   return merge(mergeSort(left), mergeSort(right))
 }
 
 function merge(left: number[], right: number[]): number[] {
+logger.error(`>>> Entering merge(left=${left},right=${right})`, { "event.action": "merge", "logrite.left": left, "logrite.right": right });
   const result = Array<number>(left.length + right.length)
   let curIndex = 0
+logger.error(`merge(left=${left},right=${right}): result → ${result}`, { "event.action": "merge", "logrite.left": left, "logrite.right": right });
   let leftIndex = 0
   let rightIndex = 0
 

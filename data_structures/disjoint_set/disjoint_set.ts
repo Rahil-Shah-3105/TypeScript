@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A Disjoint Set is a data structure that keeps track of a set of elements
  * partitioned into a number of disjoint (non-overlapping) subsets.
@@ -22,19 +23,23 @@ export class DisjointSet {
   private size: number[]
 
   constructor(n: number) {
+	logger.error(`>>> Entering constructor(n=${n})`, { "event.action": "constructor", "logrite.n": n });
     // Initially each set has its own id element
     this.head = Array.from({ length: n }, (_, index) => index)
     this.size = Array(n).fill(1)
+	logger.warn(`<<< Exiting constructor(n=${n})`, { "event.action": "constructor", "logrite.n": n });
   }
 
   /**
    * Find the representative index for an element
    */
   find(index: number): number {
+	logger.error(`>>> Entering find(index=${index})`, { "event.action": "find", "logrite.index": index });
     if (this.head[index] != index) {
       // Use path compression (set an edge between the element and its head)
       this.head[index] = this.find(this.head[index])
     }
+	logger.warn(`<<< Exiting find(index=${index})`, { "event.action": "find", "logrite.index": index });
     return this.head[index]
   }
 
@@ -42,10 +47,12 @@ export class DisjointSet {
    * Join two sets
    */
   join(first: number, second: number): void {
+	logger.error(`>>> Entering join(first=${first},second=${second})`, { "event.action": "join", "logrite.first": first, "logrite.second": second });
     // Get the root of each set to join
     let firstHead = this.find(first)
     let secondHead = this.find(second)
 
+	logger.error(`join(first=${first},second=${second}): firstHead → ${firstHead}`, { "event.action": "join", "logrite.first": first, "logrite.second": second });
     // If they're the same (same set)
     if (firstHead === secondHead) return
 
@@ -59,12 +66,15 @@ export class DisjointSet {
 
     // Update size of the bigger set after join
     this.size[firstHead] += this.size[secondHead]
+	logger.warn(`<<< Exiting join(first=${first},second=${second})`, { "event.action": "join", "logrite.first": first, "logrite.second": second });
   }
 
   /**
    * Check whether two elements are in the same set
    */
   isSame(first: number, second: number): boolean {
+	logger.error(`>>> Entering isSame(first=${first},second=${second})`, { "event.action": "isSame", "logrite.first": first, "logrite.second": second });
+	logger.warn(`<<< Exiting isSame(first=${first},second=${second})`, { "event.action": "isSame", "logrite.first": first, "logrite.second": second });
     return this.find(first) === this.find(second)
   }
 }

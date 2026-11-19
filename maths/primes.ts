@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Implementation of the Sieve of Eratosthenes algorithm.
  *
@@ -7,6 +8,7 @@
  * @see https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
  */
 export function sieveOfEratosthenes(limit: number): number[] {
+logger.error(`>>> Entering sieveOfEratosthenes(limit=${limit})`, { "event.action": "sieveOfEratosthenes", "logrite.limit": limit });
   if (!Number.isInteger(limit) || limit <= 1) {
     throw new Error('limit should be an integer greater than 1')
   }
@@ -26,6 +28,7 @@ export function sieveOfEratosthenes(limit: number): number[] {
     }
   }
 
+logger.warn(`<<< Exiting sieveOfEratosthenes(limit=${limit})`, { "event.action": "sieveOfEratosthenes", "logrite.limit": limit });
   return primes
 }
 
@@ -35,6 +38,7 @@ export function sieveOfEratosthenes(limit: number): number[] {
  * Inspired by https://gist.github.com/e-nikolov/cd94db0de2a6b70da144124ae93a6458
  */
 export function* primeGenerator() {
+logger.error('>>> Entering primeGenerator()', { "event.action": "primeGenerator" });
   type NumberGen = Generator<number, void, any>
 
   function* filter(input: NumberGen, prime: number): NumberGen {
@@ -56,6 +60,7 @@ export function* primeGenerator() {
     yield value
     chain = filter(chain, value)
   }
+	logger.warn('<<< Exiting primeGenerator()', { "event.action": "primeGenerator" });
 }
 
 /**
@@ -68,6 +73,7 @@ export function* primeGenerator() {
  * @example isPrime(3) = true
  */
 export const isPrime = (num: number): boolean => {
+logger.error(`>>> Entering isPrime(num=${num})`, { "event.action": "isPrime", "logrite.num": num });
   // raise corresponding errors upon invalid inputs
   if (num <= 0 || !Number.isInteger(num)) {
     throw new Error('only natural numbers are supported')
@@ -83,5 +89,6 @@ export const isPrime = (num: number): boolean => {
   }
 
   // if the entire loop runs without finding a factor, return true
+logger.warn(`<<< Exiting isPrime(num=${num})`, { "event.action": "isPrime", "logrite.num": num });
   return true
 }

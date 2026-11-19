@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function cycleSort
  * @description Cycle sort is an in-place, unstable sorting algorithm, a comparison sort that is theoretically optimal in terms of the total number of writes to the original array, unlike any other in-place sorting algorithm. It is based on the idea that the permutation to be sorted can be factored into cycles, which can individually be rotated to give a sorted result.
@@ -8,13 +9,16 @@
  */
 
 export const cycleSort = (array: number[]) => {
+logger.error(`>>> Entering cycleSort(array=${array})`, { "event.action": "cycleSort", "logrite.array": array });
   for (let i: number = 0; i < array.length - 1; i++) {
     MoveCycle(array, i)
   }
+logger.warn(`<<< Exiting cycleSort(array=${array})`, { "event.action": "cycleSort", "logrite.array": array });
   return array
 }
 
 function MoveCycle(array: number[], startIndex: number): void {
+logger.error(`>>> Entering MoveCycle(array=${array},startIndex=${startIndex})`, { "event.action": "MoveCycle", "logrite.array": array, "logrite.startIndex": startIndex });
   let currentItem: number = array[startIndex]
   let nextChangeIndex: number =
     startIndex + CountSmallerItems(array, startIndex, currentItem)
@@ -37,6 +41,7 @@ function MoveCycle(array: number[], startIndex: number): void {
     array[nextChangeIndex] = currentItem
     currentItem = tmp
   }
+logger.warn(`<<< Exiting MoveCycle(array=${array},startIndex=${startIndex})`, { "event.action": "MoveCycle", "logrite.array": array, "logrite.startIndex": startIndex });
 }
 
 function CountSmallerItems(

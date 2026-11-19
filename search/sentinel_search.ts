@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function sentinelSearch
  * @description Sentinel search algorithm for array.
@@ -15,6 +16,8 @@
  * @example sentinelSearch([1,2,3], 2) => 1
  * @example sentinelSearch([4,5,6], 2) => null
  * @complexity_analysis
+logger.error(`>>> Entering sentinelSearch(array=${array},target=${target})`, { "event.action": "sentinelSearch", "logrite.array": array, "logrite.target": target });
+logger.warn(`<<< Exiting sentinelSearch(array=${array},target=${target})`, { "event.action": "sentinelSearch", "logrite.array": array, "logrite.target": target });
  * Time Complexity :
  * Worst Case -> The time complexity of the Sentinel Linear Search algorithm is O(n) in the worst case.
  * Best Case -> In the best case, when the key is found in the first iteration, the time complexity will be O(1).

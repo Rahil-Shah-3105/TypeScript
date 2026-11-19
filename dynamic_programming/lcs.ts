@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Find the Longest Common Subsequence (LCS) of two strings.
  * @param text1 - The first input string.
@@ -9,6 +10,7 @@ export const longestCommonSubsequence = (
   text1: string,
   text2: string
 ): string => {
+logger.error(`>>> Entering longestCommonSubsequence(text1=${text1},text2=${text2})`, { "event.action": "longestCommonSubsequence", "logrite.text1": text1, "logrite.text2": text2 });
   const m = text1.length
   const n = text2.length
 
@@ -44,5 +46,6 @@ export const longestCommonSubsequence = (
     }
   }
 
+logger.warn(`<<< Exiting longestCommonSubsequence(text1=${text1},text2=${text2})`, { "event.action": "longestCommonSubsequence", "logrite.text1": text1, "logrite.text2": text2 });
   return lcs.join('')
 }

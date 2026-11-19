@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function GnomeSort
  * @description Gnome sort is a sort algorithm that moving an element to its proper place is accomplished by a series of swap
@@ -8,6 +9,7 @@
  */
 
 export const gnomeSort = (arr: number[]): number[] => {
+logger.error(`>>> Entering gnomeSort(arr=${arr})`, { "event.action": "gnomeSort", "logrite.arr": arr });
   if (arr.length <= 1) {
     return arr
   }
@@ -22,5 +24,6 @@ export const gnomeSort = (arr: number[]): number[] => {
       i = Math.max(1, i - 1) //go back to the previous index to check the swapped number
     }
   }
+logger.warn(`<<< Exiting gnomeSort(arr=${arr})`, { "event.action": "gnomeSort", "logrite.arr": arr });
   return arr
 }

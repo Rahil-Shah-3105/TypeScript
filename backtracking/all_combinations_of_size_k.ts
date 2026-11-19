@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * This generates an array of unique sub"sets" (represented by ascendingly sorted subarrays)
  * of size k out of n+1 numbers from 1 to n.
@@ -10,6 +11,7 @@
  *   and repeat the same process for the next number.
  */
 export function generateCombinations(n: number, k: number): number[][] {
+logger.error(`>>> Entering generateCombinations(n=${n},k=${k})`, { "event.action": "generateCombinations", "logrite.n": n, "logrite.k": k });
   const combinationsAcc: number[][] = []
   const currentCombination: number[] = []
 
@@ -34,5 +36,6 @@ export function generateCombinations(n: number, k: number): number[][] {
     return combinationsAcc
   }
 
+logger.warn(`<<< Exiting generateCombinations(n=${n},k=${k})`, { "event.action": "generateCombinations", "logrite.n": n, "logrite.k": k });
   return generateAllCombos(n, k, 1)
 }

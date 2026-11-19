@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Circular Queue implementation using array.
  *
@@ -14,10 +15,13 @@ export class CircularQueue<T> {
   private size: number
 
   constructor(size: number) {
+	logger.error(`>>> Entering constructor(size=${size})`, { "event.action": "constructor", "logrite.size": size });
     this.queue = new Array(size)
     this.frontIndex = -1
     this.rearIndex = -1
+	logger.debug(`constructor(size=${size}): this.frontIndex → ${this.frontIndex}`, { "event.action": "constructor", "logrite.size": size });
     this.size = size
+	logger.debug(`constructor(size=${size}): this.size → ${this.size}`, { "event.action": "constructor", "logrite.size": size });
   }
 
   /**
@@ -26,6 +30,7 @@ export class CircularQueue<T> {
    * @param item The item being added to the queue.
    */
   enqueue(item: T): void {
+	logger.error(`>>> Entering enqueue(item=${item})`, { "event.action": "enqueue", "logrite.item": item });
     if (
       (this.frontIndex == 0 && this.rearIndex == this.size - 1) ||
       this.rearIndex == (this.frontIndex - 1) % (this.size - 1)
@@ -33,7 +38,9 @@ export class CircularQueue<T> {
       throw new Error('Queue is full')
     } else if (this.frontIndex == -1) {
       this.frontIndex = 0
+	logger.debug(`enqueue(item=${item}): this.frontIndex → ${this.frontIndex}`, { "event.action": "enqueue", "logrite.item": item });
       this.rearIndex = 0
+	logger.debug(`enqueue(item=${item}): this.rearIndex → ${this.rearIndex}`, { "event.action": "enqueue", "logrite.item": item });
       this.queue[this.rearIndex] = item
     } else if (this.rearIndex == this.size - 1 && this.frontIndex != 0) {
       this.rearIndex = 0
@@ -41,6 +48,7 @@ export class CircularQueue<T> {
     } else {
       this.rearIndex++
       this.queue[this.rearIndex] = item
+	logger.warn(`<<< Exiting enqueue(item=${item})`, { "event.action": "enqueue", "logrite.item": item });
     }
   }
 
@@ -51,6 +59,7 @@ export class CircularQueue<T> {
    * @returns The item that was removed from the queue.
    */
   dequeue(): T | undefined {
+	logger.error('>>> Entering dequeue()', { "event.action": "dequeue" });
     if (this.frontIndex == -1) {
       throw new Error('Queue is empty')
     }
@@ -58,6 +67,7 @@ export class CircularQueue<T> {
     const item = this.queue[this.frontIndex]
     if (this.frontIndex == this.rearIndex) {
       this.frontIndex = -1
+	logger.debug(`dequeue(): this.frontIndex → ${this.frontIndex}`, { "event.action": "dequeue" });
       this.rearIndex = -1
     } else if (this.frontIndex == this.size - 1) {
       this.frontIndex = 0
@@ -65,6 +75,7 @@ export class CircularQueue<T> {
       this.frontIndex++
     }
 
+	logger.warn('<<< Exiting dequeue()', { "event.action": "dequeue" });
     return item
   }
 
@@ -74,10 +85,12 @@ export class CircularQueue<T> {
    * @returns The item at the front of the queue or null if the queue is empty.
    */
   peek(): T | null | undefined {
+	logger.error('>>> Entering peek()', { "event.action": "peek" });
     if (this.frontIndex == -1) {
       return null
     }
 
+	logger.warn('<<< Exiting peek()', { "event.action": "peek" });
     return this.queue[this.frontIndex]
   }
 
@@ -87,6 +100,8 @@ export class CircularQueue<T> {
    * @returns {boolean} Whether the queue is empty or not.
    */
   isEmpty(): boolean {
+	logger.error('>>> Entering isEmpty()', { "event.action": "isEmpty" });
+	logger.warn('<<< Exiting isEmpty()', { "event.action": "isEmpty" });
     return this.frontIndex == -1
   }
 
@@ -96,6 +111,7 @@ export class CircularQueue<T> {
    * @returns {number} The number of items in the queue.
    */
   length(): number {
+	logger.error('>>> Entering length()', { "event.action": "length" });
     if (this.frontIndex == -1) {
       return 0
     }
@@ -104,6 +120,7 @@ export class CircularQueue<T> {
       return this.rearIndex - this.frontIndex + 1
     }
 
+	logger.warn('<<< Exiting length()', { "event.action": "length" });
     return this.size - (this.frontIndex - this.rearIndex - 1)
   }
 }

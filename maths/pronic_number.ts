@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function pronicNumber
  * @description Checks whether a given number is a pronic number or not
@@ -14,11 +15,13 @@
  * @example pronicNumber(49) = false
  */
 const pronicNumber = (n: number) => {
+logger.error(`>>> Entering pronicNumber(n=${n})`, { "event.action": "pronicNumber", "logrite.n": n });
   if (isNaN(n)) throw new Error('The input needs to be a number')
   if (!Number.isInteger(n) || n < 0)
     throw new Error('The input needs to be a non-negative integer')
   if (n === 0) return true
 
+logger.warn(`<<< Exiting pronicNumber(n=${n})`, { "event.action": "pronicNumber", "logrite.n": n });
   return (
     !Number.isInteger(Math.sqrt(n)) &&
     Math.floor(Math.sqrt(n)) * Math.ceil(Math.sqrt(n)) === n

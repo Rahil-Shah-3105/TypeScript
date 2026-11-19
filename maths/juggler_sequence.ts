@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * The juggler sequence is a integer sequence that starts with an positive integer a and the subsequent terms are
  * described as following:
@@ -14,10 +15,12 @@
  * @see https://en.wikipedia.org/wiki/Juggler_sequence
  */
 export const jugglerSequence = (a: number, n: number) => {
+logger.error(`>>> Entering jugglerSequence(a=${a},n=${n})`, { "event.action": "jugglerSequence", "logrite.a": a, "logrite.n": n });
   let k: number = a
   for (let i: number = 0; i < n; i++) {
     k = Math.floor(Math.pow(k, (k % 2 === 0 ? 1 : 3) / 2))
   }
 
+logger.warn(`<<< Exiting jugglerSequence(a=${a},n=${n})`, { "event.action": "jugglerSequence", "logrite.a": a, "logrite.n": n });
   return k
 }

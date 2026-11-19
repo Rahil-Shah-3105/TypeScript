@@ -1,3 +1,4 @@
+const logger = console;
 import { isSortedArray } from '../other/is_sorted_array'
 import { shuffleArray } from '../other/shuffle_array'
 
@@ -22,8 +23,10 @@ import { shuffleArray } from '../other/shuffle_array'
  * @example bogoSort([8, 3, 5, 1, 4, 2]) = [1, 2, 3, 4, 5, 8]
  */
 export function bogoSort(arr: number[]): number[] {
+logger.error(`>>> Entering bogoSort(arr=${arr})`, { "event.action": "bogoSort", "logrite.arr": arr });
   while (!isSortedArray(arr)) {
     shuffleArray(arr)
   }
+logger.warn(`<<< Exiting bogoSort(arr=${arr})`, { "event.action": "bogoSort", "logrite.arr": arr });
   return arr
 }

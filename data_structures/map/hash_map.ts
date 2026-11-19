@@ -1,3 +1,4 @@
+const logger = console;
 import { Map } from './map'
 
 /**
@@ -19,7 +20,11 @@ export class HashMap<K, V> implements Map<K, V> {
   private readonly loadFactor = 0.75
 
   constructor() {
+	logger.error('>>> Entering constructor()', { "event.action": "constructor" });
     this.clear()
+	logger.warn('<<< Exiting constructor()', { "event.action": "constructor" });
+	logger.error(`>>> Entering constructor(key=${key},value=${value})`, { "event.action": "constructor", "logrite.key": key, "logrite.value": value });
+	logger.debug(`constructor(key=${key},value=${value}): this.value → ${this.value}`, { "event.action": "constructor", "logrite.key": key, "logrite.value": value });
   }
 
   /**
@@ -28,6 +33,8 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns The size.
    */
   getSize(): number {
+	logger.error('>>> Entering getSize()', { "event.action": "getSize" });
+	logger.warn('<<< Exiting getSize()', { "event.action": "getSize" });
     return this.size
   }
 
@@ -38,6 +45,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @param value The value.
    */
   set(key: K, value: V): void {
+	logger.error(`>>> Entering set(key=${key},value=${value})`, { "event.action": "set", "logrite.key": key, "logrite.value": value });
     const loadFactor = this.size / this.buckets.length
     if (loadFactor > this.loadFactor) {
       this.resize()
@@ -70,6 +78,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns The value or null if the key does not exist.
    */
   get(key: K): V | null {
+	logger.error(`>>> Entering get(key=${key})`, { "event.action": "get", "logrite.key": key });
     const index = this.hash(key)
     const bucket = this.buckets[index]
 
@@ -88,6 +97,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @param key The key whose key-value pair to delete.
    */
   delete(key: K): void {
+	logger.error(`>>> Entering delete(key=${key})`, { "event.action": "delete", "logrite.key": key });
     const index = this.hash(key)
     const bucket = this.buckets[index]
 
@@ -98,6 +108,7 @@ export class HashMap<K, V> implements Map<K, V> {
         return
       }
     }
+	logger.warn(`<<< Exiting delete(key=${key})`, { "event.action": "delete", "logrite.key": key });
   }
 
   /**
@@ -107,6 +118,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns Whether the key exists.
    */
   has(key: K): boolean {
+	logger.error(`>>> Entering has(key=${key})`, { "event.action": "has", "logrite.key": key });
     const index = this.hash(key)
     const bucket = this.buckets[index]
 
@@ -116,6 +128,7 @@ export class HashMap<K, V> implements Map<K, V> {
       }
     }
 
+	logger.warn(`<<< Exiting has(key=${key})`, { "event.action": "has", "logrite.key": key });
     return false
   }
 
@@ -123,8 +136,10 @@ export class HashMap<K, V> implements Map<K, V> {
    * Clears the hash map.
    */
   clear(): void {
+	logger.error('>>> Entering clear()', { "event.action": "clear" });
     this.size = 0
     this.initializeBuckets(16)
+	logger.debug(`clear(): this.size → ${this.size}`, { "event.action": "clear" });
   }
 
   /**
@@ -133,6 +148,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns The keys.
    */
   keys(): K[] {
+	logger.error('>>> Entering keys()', { "event.action": "keys" });
     const keys: K[] = []
     for (const bucket of this.buckets) {
       for (const entry of bucket) {
@@ -140,6 +156,7 @@ export class HashMap<K, V> implements Map<K, V> {
       }
     }
 
+	logger.warn('<<< Exiting keys()', { "event.action": "keys" });
     return keys
   }
 
@@ -149,6 +166,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns The values.
    */
   values(): V[] {
+	logger.error('>>> Entering values()', { "event.action": "values" });
     const values: V[] = []
     for (const bucket of this.buckets) {
       for (const entry of bucket) {
@@ -156,6 +174,7 @@ export class HashMap<K, V> implements Map<K, V> {
       }
     }
 
+	logger.warn('<<< Exiting values()', { "event.action": "values" });
     return values
   }
 
@@ -165,6 +184,7 @@ export class HashMap<K, V> implements Map<K, V> {
    * @returns The entries.
    */
   entries(): MapEntry<K, V>[] {
+	logger.error('>>> Entering entries()', { "event.action": "entries" });
     const entries: MapEntry<K, V>[] = []
     for (const bucket of this.buckets) {
       for (const entry of bucket) {
@@ -172,6 +192,7 @@ export class HashMap<K, V> implements Map<K, V> {
       }
     }
 
+	logger.warn('<<< Exiting entries()', { "event.action": "entries" });
     return entries
   }
 
@@ -181,10 +202,13 @@ export class HashMap<K, V> implements Map<K, V> {
    * @param amount The amount of buckets to initialize.
    */
   private initializeBuckets(amount: number): void {
+	logger.error(`>>> Entering initializeBuckets(amount=${amount})`, { "event.action": "initializeBuckets", "logrite.amount": amount });
     this.buckets = []
     for (let i = 0; i < amount; i++) {
+	logger.debug(`initializeBuckets(amount=${amount}): this.buckets → ${this.buckets}`, { "event.action": "initializeBuckets", "logrite.amount": amount });
       this.buckets.push([])
     }
+	logger.warn(`<<< Exiting initializeBuckets(amount=${amount})`, { "event.action": "initializeBuckets", "logrite.amount": amount });
   }
 
   /**
@@ -196,12 +220,14 @@ export class HashMap<K, V> implements Map<K, V> {
    * @return The index.
    */
   protected hash(key: K): number {
+	logger.error(`>>> Entering hash(key=${key})`, { "event.action": "hash", "logrite.key": key });
     let hash = 0
 
     for (let i = 0; i < String(key).length; i++) {
       hash = (hash << 5) - hash + String(key).charCodeAt(i)
     }
 
+	logger.warn(`<<< Exiting hash(key=${key})`, { "event.action": "hash", "logrite.key": key });
     return hash % this.buckets.length
   }
 
@@ -209,13 +235,16 @@ export class HashMap<K, V> implements Map<K, V> {
    * Resizes the hash map by doubling the amount of buckets.
    */
   private resize(): void {
+	logger.error('>>> Entering resize()', { "event.action": "resize" });
     const entries = this.entries()
 
     this.initializeBuckets(this.buckets.length * 2)
     this.size = 0
+	logger.debug(`resize(): this.size → ${this.size}`, { "event.action": "resize" });
 
     for (const entry of entries) {
       this.set(entry.key, entry.value)
+	logger.warn('<<< Exiting resize()', { "event.action": "resize" });
     }
   }
 }

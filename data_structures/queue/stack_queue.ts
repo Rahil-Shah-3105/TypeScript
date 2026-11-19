@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A Stack Based Queue Implementation.
  * The Queue data structure which follows the FIFO (First in First Out) rule.
@@ -20,6 +21,8 @@ export class StackQueue<T> implements Queue<T> {
    * @returns {number} the length of the Queue
    */
   length(): number {
+	logger.error('>>> Entering length()', { "event.action": "length" });
+	logger.warn('<<< Exiting length()', { "event.action": "length" });
     return this.enqueueStack.length() + this.dequeueStack.length()
   }
 
@@ -29,6 +32,8 @@ export class StackQueue<T> implements Queue<T> {
    * @returns {boolean} Whether the queue is empty or not.
    */
   isEmpty(): boolean {
+	logger.error('>>> Entering isEmpty()', { "event.action": "isEmpty" });
+	logger.warn('<<< Exiting isEmpty()', { "event.action": "isEmpty" });
     return this.enqueueStack.isEmpty() && this.dequeueStack.isEmpty()
   }
 
@@ -38,7 +43,9 @@ export class StackQueue<T> implements Queue<T> {
    * @param item The item being added to the queue.
    */
   enqueue(item: T): void {
+	logger.error(`>>> Entering enqueue(item=${item})`, { "event.action": "enqueue", "logrite.item": item });
     this.enqueueStack.push(item)
+	logger.warn(`<<< Exiting enqueue(item=${item})`, { "event.action": "enqueue", "logrite.item": item });
   }
 
   /**
@@ -48,6 +55,7 @@ export class StackQueue<T> implements Queue<T> {
    * This helps in dequeuing the elements in amortized O(1) time.
    */
   private shift(): void {
+	logger.error('>>> Entering shift()', { "event.action": "shift" });
     while (!this.enqueueStack.isEmpty()) {
       const enqueueStackTop = this.enqueueStack.pop()
       this.dequeueStack.push(enqueueStackTop)
@@ -61,6 +69,7 @@ export class StackQueue<T> implements Queue<T> {
    * @returns The item that was removed from the queue.
    */
   dequeue(): T {
+	logger.error('>>> Entering dequeue()', { "event.action": "dequeue" });
     if (this.isEmpty()) {
       throw new Error('Queue Underflow')
     }
@@ -69,6 +78,7 @@ export class StackQueue<T> implements Queue<T> {
       this.shift()
     }
 
+	logger.warn('<<< Exiting dequeue()', { "event.action": "dequeue" });
     return this.dequeueStack.pop()
   }
 
@@ -78,6 +88,7 @@ export class StackQueue<T> implements Queue<T> {
    * @returns The item at the front of the queue or null if the queue is empty.
    */
   peek(): T | null {
+	logger.error('>>> Entering peek()', { "event.action": "peek" });
     if (this.isEmpty()) {
       return null
     }
@@ -86,6 +97,7 @@ export class StackQueue<T> implements Queue<T> {
       this.shift()
     }
 
+	logger.warn('<<< Exiting peek()', { "event.action": "peek" });
     return this.dequeueStack.top()
   }
 }

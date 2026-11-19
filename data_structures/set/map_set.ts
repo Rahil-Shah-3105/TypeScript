@@ -1,3 +1,4 @@
+const logger = console;
 import { Map } from './map'
 import { Set } from './set'
 
@@ -12,7 +13,9 @@ export abstract class MapSet<K> implements Set<K> {
   private map: Map<K, null>
 
   constructor() {
+	logger.error('>>> Entering constructor()', { "event.action": "constructor" });
     this.map = this.initMap()
+	logger.warn('<<< Exiting constructor()', { "event.action": "constructor" });
   }
 
   /**
@@ -26,7 +29,9 @@ export abstract class MapSet<K> implements Set<K> {
    * @param value The value to add to the set.
    */
   add(value: K): void {
+	logger.error(`>>> Entering add(value=${value})`, { "event.action": "add", "logrite.value": value });
     this.map.set(value, null)
+	logger.warn(`<<< Exiting add(value=${value})`, { "event.action": "add", "logrite.value": value });
   }
 
   /**
@@ -35,7 +40,9 @@ export abstract class MapSet<K> implements Set<K> {
    * @param value The value to remove from the set.
    */
   delete(value: K): void {
+	logger.error(`>>> Entering delete(value=${value})`, { "event.action": "delete", "logrite.value": value });
     this.map.delete(value)
+	logger.warn(`<<< Exiting delete(value=${value})`, { "event.action": "delete", "logrite.value": value });
   }
 
   /**
@@ -45,6 +52,8 @@ export abstract class MapSet<K> implements Set<K> {
    * @returns Whether the set contains the value.
    */
   has(value: K): boolean {
+	logger.error(`>>> Entering has(value=${value})`, { "event.action": "has", "logrite.value": value });
+	logger.warn(`<<< Exiting has(value=${value})`, { "event.action": "has", "logrite.value": value });
     return this.map.has(value)
   }
 
@@ -52,7 +61,9 @@ export abstract class MapSet<K> implements Set<K> {
    * Removes all elements from the set.
    */
   clear(): void {
+	logger.error('>>> Entering clear()', { "event.action": "clear" });
     this.map.clear()
+	logger.warn('<<< Exiting clear()', { "event.action": "clear" });
   }
 
   /**
@@ -61,6 +72,8 @@ export abstract class MapSet<K> implements Set<K> {
    * @returns An array of all the values in the set.
    */
   values(): K[] {
+	logger.error('>>> Entering values()', { "event.action": "values" });
+	logger.warn('<<< Exiting values()', { "event.action": "values" });
     return this.map.keys()
   }
 
@@ -70,6 +83,8 @@ export abstract class MapSet<K> implements Set<K> {
    * @returns The number of elements in the set.
    */
   getSize(): number {
+	logger.error('>>> Entering getSize()', { "event.action": "getSize" });
+	logger.warn('<<< Exiting getSize()', { "event.action": "getSize" });
     return this.map.getSize()
   }
 }

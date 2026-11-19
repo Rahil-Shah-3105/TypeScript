@@ -1,3 +1,4 @@
+const logger = console;
 import { LinkedList } from './linked_list'
 
 /**
@@ -45,6 +46,8 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @returns Whether the list is empty or not.
    */
   isEmpty(): boolean {
+	logger.error('>>> Entering isEmpty()', { "event.action": "isEmpty" });
+	logger.warn('<<< Exiting isEmpty()', { "event.action": "isEmpty" });
     return !this.head
   }
 
@@ -56,6 +59,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @returns The data of the node at the given index or null, if no data is present.
    */
   get(index: number): T | null {
+	logger.error(`>>> Entering get(index=${index})`, { "event.action": "get", "logrite.index": index });
     if (index < 0 || index >= this.length) {
       return null
     }
@@ -73,6 +77,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
       currentNode = currentNode.next
     }
 
+	logger.warn(`<<< Exiting get(index=${index})`, { "event.action": "get", "logrite.index": index });
     return currentNode.data
   }
 
@@ -83,10 +88,12 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @param data The data to be inserted.
    */
   push(data: T): void {
+	logger.error(`>>> Entering push(data=${data})`, { "event.action": "push" });
     const node: ListNode<T> = new ListNode<T>(data)
 
     if (this.isEmpty()) {
       this.head = node
+	logger.debug(`push(data=${data}): this.head → ${this.head}`, { "event.action": "push" });
       this.tail = node
     } else {
       node.next = this.head
@@ -104,14 +111,17 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @throws Index out of bounds if the list is empty.
    */
   pop(): T {
+	logger.error('>>> Entering pop()', { "event.action": "pop" });
     if (this.isEmpty()) {
       throw new Error('Index out of bounds')
     }
 
     const node: ListNode<T> = this.head!
     this.head = this.head!.next
+	logger.debug(`pop(): this.head → ${this.head}`, { "event.action": "pop" });
     this.length--
 
+	logger.warn('<<< Exiting pop()', { "event.action": "pop" });
     return node.data
   }
 
@@ -122,6 +132,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @param data The data of the node being inserted.
    */
   append(data: T): void {
+	logger.error(`>>> Entering append(data=${data})`, { "event.action": "append" });
     const node: ListNode<T> = new ListNode<T>(data)
 
     if (this.isEmpty()) {
@@ -131,6 +142,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     }
 
     this.tail = node
+	logger.debug(`append(data=${data}): this.tail → ${this.tail}`, { "event.action": "append" });
     this.length++
   }
 
@@ -142,6 +154,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @throws Index out of bounds if the list is empty.
    */
   removeTail(): T {
+	logger.error('>>> Entering removeTail()', { "event.action": "removeTail" });
     if (!this.head) {
       throw new Error('Index out of bounds')
     }
@@ -149,7 +162,9 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     const currentTail = this.tail
     if (this.head === this.tail) {
       this.head = undefined
+	logger.debug(`removeTail(): this.head → ${this.head}`, { "event.action": "removeTail" });
       this.tail = undefined
+	logger.debug(`removeTail(): this.tail → ${this.tail}`, { "event.action": "removeTail" });
       this.length--
 
       return currentTail!.data
@@ -163,6 +178,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     this.tail = currentNode
     this.length--
 
+	logger.warn('<<< Exiting removeTail()', { "event.action": "removeTail" });
     return currentTail!.data
   }
 
@@ -175,6 +191,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @throws Index out of bounds, when given an invalid index.
    */
   insertAt(index: number, data: T): void {
+	logger.error(`>>> Entering insertAt(index=${index},data=${data})`, { "event.action": "insertAt", "logrite.index": index });
     if (index < 0 || index > this.length) {
       throw new Error('Index out of bounds')
     }
@@ -193,6 +210,8 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
 
     const newNode = new ListNode<T>(data)
     let currentNode: ListNode<T> | undefined = this.head
+	logger.error(`insertAt(index=${index},data=${data}): newNode → ${newNode}`, { "event.action": "insertAt", "logrite.index": index });
+	logger.debug(`insertAt(index=${index},data=${data}): newNode.next → ${newNode.next}`, { "event.action": "insertAt", "logrite.index": index });
     for (let i: number = 0; i < index - 1; i++) {
       currentNode = currentNode?.next
     }
@@ -213,6 +232,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @throws Index out of bounds, when given an invalid index.
    */
   removeAt(index: number): T {
+	logger.error(`>>> Entering removeAt(index=${index})`, { "event.action": "removeAt", "logrite.index": index });
     if (index < 0 || index >= this.length) {
       throw new Error('Index out of bounds')
     }
@@ -238,6 +258,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
     previousNode!.next = currentNode?.next
     this.length--
 
+	logger.warn(`<<< Exiting removeAt(index=${index})`, { "event.action": "removeAt", "logrite.index": index });
     return currentNode!.data
   }
 
@@ -245,8 +266,11 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * Clears the list.
    */
   clear(): void {
+	logger.error('>>> Entering clear()', { "event.action": "clear" });
     this.head = undefined
     this.tail = undefined
+	logger.debug(`clear(): this.head → ${this.head}`, { "event.action": "clear" });
+	logger.debug(`clear(): this.tail → ${this.tail}`, { "event.action": "clear" });
     this.length = 0
   }
 
@@ -256,6 +280,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @returns The array representation of the list.
    */
   toArray(): T[] {
+	logger.error('>>> Entering toArray()', { "event.action": "toArray" });
     const array: T[] = []
     let currentNode: ListNode<T> | undefined = this.head
 
@@ -264,6 +289,7 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
       currentNode = currentNode.next
     }
 
+	logger.warn('<<< Exiting toArray()', { "event.action": "toArray" });
     return array
   }
 
@@ -273,6 +299,8 @@ export class SinglyLinkedList<T> implements LinkedList<T> {
    * @returns The length of the list.
    */
   getLength(): number {
+	logger.error('>>> Entering getLength()', { "event.action": "getLength" });
+	logger.warn('<<< Exiting getLength()', { "event.action": "getLength" });
     return this.length
   }
 }

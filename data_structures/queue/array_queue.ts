@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * This is an array-based implementation of a Queue.
  * A Queue is a data structure that follows the FIFO (First In First Out) principle.
@@ -14,6 +15,8 @@ export class ArrayQueue<T> implements Queue<T> {
    * @returns {number} The number of items in the queue.
    */
   length(): number {
+	logger.error('>>> Entering length()', { "event.action": "length" });
+	logger.warn('<<< Exiting length()', { "event.action": "length" });
     return this.queue.length
   }
 
@@ -23,6 +26,8 @@ export class ArrayQueue<T> implements Queue<T> {
    * @returns {boolean} Whether the queue is empty or not.
    */
   isEmpty(): boolean {
+	logger.error('>>> Entering isEmpty()', { "event.action": "isEmpty" });
+	logger.warn('<<< Exiting isEmpty()', { "event.action": "isEmpty" });
     return this.queue.length === 0
   }
 
@@ -32,7 +37,9 @@ export class ArrayQueue<T> implements Queue<T> {
    * @param item The item being added to the queue.
    */
   enqueue(item: T): void {
+	logger.error(`>>> Entering enqueue(item=${item})`, { "event.action": "enqueue", "logrite.item": item });
     this.queue.push(item)
+	logger.warn(`<<< Exiting enqueue(item=${item})`, { "event.action": "enqueue", "logrite.item": item });
   }
 
   /**
@@ -42,10 +49,12 @@ export class ArrayQueue<T> implements Queue<T> {
    * @returns The item that was removed from the queue.
    */
   dequeue(): T {
+	logger.error('>>> Entering dequeue()', { "event.action": "dequeue" });
     if (this.isEmpty()) {
       throw new Error('Queue Underflow')
     }
 
+	logger.warn('<<< Exiting dequeue()', { "event.action": "dequeue" });
     return this.queue.shift() as T
   }
 
@@ -55,10 +64,12 @@ export class ArrayQueue<T> implements Queue<T> {
    * @returns The item at the front of the queue or null if the queue is empty.
    */
   peek(): T | null {
+	logger.error('>>> Entering peek()', { "event.action": "peek" });
     if (this.isEmpty()) {
       return null
     }
 
+	logger.warn('<<< Exiting peek()', { "event.action": "peek" });
     return this.queue[0]
   }
 }

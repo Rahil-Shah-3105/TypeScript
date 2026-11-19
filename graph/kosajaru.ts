@@ -1,3 +1,4 @@
+const logger = console;
 // Compute the node priorities, which will be used to determine the order in which we perform transposed DFS.
 const getNodePriorities = (
   graph: number[][],
@@ -5,6 +6,7 @@ const getNodePriorities = (
   stack: number[],
   node: number
 ) => {
+logger.error(`>>> Entering getNodePriorities(graph=${graph},visited=${visited},stack=${stack},node=${node})`, { "event.action": "getNodePriorities", "logrite.graph": graph, "logrite.visited": visited, "logrite.stack": stack, "logrite.node": node });
   if (visited[node]) {
     return
   }
@@ -15,12 +17,15 @@ const getNodePriorities = (
   }
   // Nodes that end their DFS earlier are pushed onto the stack first and have lower priority.
   stack.push(node)
+logger.warn(`<<< Exiting getNodePriorities(graph=${graph},visited=${visited},stack=${stack},node=${node})`, { "event.action": "getNodePriorities", "logrite.graph": graph, "logrite.visited": visited, "logrite.stack": stack, "logrite.node": node });
 }
 
 // Return the transpose of graph. The tranpose of a directed graph is a graph where each of the edges are flipped.
 const transpose = (graph: number[][]): number[][] => {
+logger.error(`>>> Entering transpose(graph=${graph})`, { "event.action": "transpose", "logrite.graph": graph });
   const transposedGraph = Array(graph.length)
   for (let i = 0; i < graph.length; ++i) {
+	logger.error(`transpose(graph=${graph}): transposedGraph → ${transposedGraph}`, { "event.action": "transpose", "logrite.graph": graph });
     transposedGraph[i] = []
   }
 
@@ -30,6 +35,7 @@ const transpose = (graph: number[][]): number[][] => {
     }
   }
 
+logger.warn(`<<< Exiting transpose(graph=${graph})`, { "event.action": "transpose", "logrite.graph": graph });
   return transposedGraph
 }
 
@@ -40,6 +46,7 @@ const gatherScc = (
   node: number,
   scc: number[]
 ) => {
+logger.error(`>>> Entering gatherScc(graph=${graph},visited=${visited},node=${node},scc=${scc})`, { "event.action": "gatherScc", "logrite.graph": graph, "logrite.visited": visited, "logrite.node": node, "logrite.scc": scc });
   if (visited[node]) {
     return
   }
@@ -49,6 +56,7 @@ const gatherScc = (
   for (const dest of graph[node]) {
     gatherScc(graph, visited, dest, scc)
   }
+	logger.warn(`<<< Exiting gatherScc(graph=${graph},visited=${visited},node=${node},scc=${scc})`, { "event.action": "gatherScc", "logrite.graph": graph, "logrite.visited": visited, "logrite.node": node, "logrite.scc": scc });
 }
 
 /**
@@ -62,8 +70,10 @@ const gatherScc = (
  * @see https://en.wikipedia.org/wiki/Kosaraju%27s_algorithm
  */
 export const kosajaru = (graph: number[][]): number[][] => {
+logger.error(`>>> Entering kosajaru(graph=${graph})`, { "event.action": "kosajaru", "logrite.graph": graph });
   const visited = Array(graph.length).fill(false)
 
+logger.error(`kosajaru(graph=${graph}): visited → ${visited}`, { "event.action": "kosajaru", "logrite.graph": graph });
   const stack: number[] = []
   for (let i = 0; i < graph.length; ++i) {
     getNodePriorities(graph, visited, stack, i)
@@ -71,6 +81,7 @@ export const kosajaru = (graph: number[][]): number[][] => {
 
   const transposedGraph = transpose(graph)
 
+logger.error(`kosajaru(graph=${graph}): transposedGraph → ${transposedGraph}`, { "event.action": "kosajaru", "logrite.graph": graph });
   const sccs = []
   visited.fill(false)
   for (let i = stack.length - 1; i >= 0; --i) {
@@ -80,5 +91,6 @@ export const kosajaru = (graph: number[][]): number[][] => {
       sccs.push(scc)
     }
   }
+logger.warn(`<<< Exiting kosajaru(graph=${graph})`, { "event.action": "kosajaru", "logrite.graph": graph });
   return sccs
 }

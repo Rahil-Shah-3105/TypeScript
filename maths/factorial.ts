@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function factorial
  * @description Calculate the factorial of a natural number.
@@ -8,9 +9,11 @@
  * @example factorial(3) = 6
  */
 export const factorial = (num: number): number => {
+logger.error(`>>> Entering factorial(num=${num})`, { "event.action": "factorial", "logrite.num": num });
   if (num < 0 || !Number.isInteger(num)) {
     throw new Error('only natural numbers are supported')
   }
 
+logger.warn(`<<< Exiting factorial(num=${num})`, { "event.action": "factorial", "logrite.num": num });
   return num === 0 ? 1 : num * factorial(num - 1)
 }

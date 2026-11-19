@@ -1,9 +1,11 @@
+const logger = console;
 const dfs = (
   graph: number[][],
   colors: number[],
   node: number,
   color: number
 ): boolean => {
+logger.error(`>>> Entering dfs(graph=${graph},colors=${colors},node=${node},color=${color})`, { "event.action": "dfs", "logrite.graph": graph, "logrite.colors": colors, "logrite.node": node, "logrite.color": color });
   if (colors[node] !== 0) {
     return colors[node] === color
   }
@@ -16,6 +18,7 @@ const dfs = (
     }
   }
 
+logger.warn(`<<< Exiting dfs(graph=${graph},colors=${colors},node=${node},color=${color})`, { "event.action": "dfs", "logrite.graph": graph, "logrite.colors": colors, "logrite.node": node, "logrite.color": color });
   return true
 }
 
@@ -31,6 +34,7 @@ const dfs = (
  */
 
 export const isBipartite = (graph: number[][]): boolean => {
+logger.error(`>>> Entering isBipartite(graph=${graph})`, { "event.action": "isBipartite", "logrite.graph": graph });
   const n: number = graph.length
   const colors: number[] = new Array(n).fill(0)
 
@@ -40,5 +44,6 @@ export const isBipartite = (graph: number[][]): boolean => {
     }
   }
 
+logger.warn(`<<< Exiting isBipartite(graph=${graph})`, { "event.action": "isBipartite", "logrite.graph": graph });
   return true
 }

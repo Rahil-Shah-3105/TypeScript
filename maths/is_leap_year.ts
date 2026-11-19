@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function isLeapYear
  * @description Checks if a year is a leap year (Gregorian calendar).
@@ -10,9 +11,11 @@
  */
 
 export const isLeapYear = (year: number): boolean => {
+logger.error(`>>> Entering isLeapYear(year=${year})`, { "event.action": "isLeapYear", "logrite.year": year });
   if (year <= 0 || !Number.isInteger(year)) {
     throw new Error('year must be a natural number > 0')
   }
 
+logger.warn(`<<< Exiting isLeapYear(year=${year})`, { "event.action": "isLeapYear", "logrite.year": year });
   return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
 }

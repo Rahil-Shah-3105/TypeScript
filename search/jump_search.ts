@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function jumpSearch
  * @description Jump search algorithm for a sorted array.
@@ -19,6 +20,7 @@
  */
 
 export const jumpSearch = (array: number[], target: number): number => {
+logger.error(`>>> Entering jumpSearch(array=${array},target=${target})`, { "event.action": "jumpSearch", "logrite.array": array, "logrite.target": target });
   if (array.length === 0) return -1
 
   // declare pointers for the current and next indexes and step size
@@ -42,5 +44,6 @@ export const jumpSearch = (array: number[], target: number): number => {
     }
   }
 
+logger.warn(`<<< Exiting jumpSearch(array=${array},target=${target})`, { "event.action": "jumpSearch", "logrite.array": array, "logrite.target": target });
   return -1
 }

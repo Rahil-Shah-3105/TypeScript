@@ -1,3 +1,4 @@
+const logger = console;
 import { SinglyLinkedList } from '../list/singly_linked_list'
 
 /**
@@ -14,8 +15,10 @@ export class LinkedListStack<T> {
    * Creates a new stack object.
    */
   constructor(limit: number = Number.MAX_VALUE) {
+	logger.error(`>>> Entering constructor(limit=${limit})`, { "event.action": "constructor", "logrite.limit": limit });
     this.list = new SinglyLinkedList<T>()
     this.limit = limit
+	logger.debug(`constructor(limit=${limit}): this.limit → ${this.limit}`, { "event.action": "constructor", "logrite.limit": limit });
   }
 
   /**
@@ -25,10 +28,12 @@ export class LinkedListStack<T> {
    * @returns The top element of the stack.
    */
   top(): T | null {
+	logger.error('>>> Entering top()', { "event.action": "top" });
     if (this.list.isEmpty()) {
       return null
     }
 
+	logger.warn('<<< Exiting top()', { "event.action": "top" });
     return this.list.get(0)!
   }
 
@@ -40,11 +45,13 @@ export class LinkedListStack<T> {
    * @throws Stack overflow, if the new element does not fit in the limit.
    */
   push(data: T): void {
+	logger.error(`>>> Entering push(data=${data})`, { "event.action": "push" });
     if (this.list.getLength() + 1 > this.limit) {
       throw new Error('Stack overflow')
     }
 
     this.list.push(data)
+	logger.warn(`<<< Exiting push(data=${data})`, { "event.action": "push" });
   }
 
   /**
@@ -55,10 +62,12 @@ export class LinkedListStack<T> {
    * @throws Stack underflow, if the stack has no elements to pop.
    */
   pop(): T {
+	logger.error('>>> Entering pop()', { "event.action": "pop" });
     if (this.list.isEmpty()) {
       throw new Error('Stack underflow')
     }
 
+	logger.warn('<<< Exiting pop()', { "event.action": "pop" });
     return this.list.pop()
   }
 
@@ -68,6 +77,8 @@ export class LinkedListStack<T> {
    * @returns The amount of elements in the stack.
    */
   length(): number {
+	logger.error('>>> Entering length()', { "event.action": "length" });
+	logger.warn('<<< Exiting length()', { "event.action": "length" });
     return this.list.getLength()
   }
 
@@ -77,6 +88,8 @@ export class LinkedListStack<T> {
    * @returns Whether the stack is empty or not.
    */
   isEmpty(): boolean {
+	logger.error('>>> Entering isEmpty()', { "event.action": "isEmpty" });
+	logger.warn('<<< Exiting isEmpty()', { "event.action": "isEmpty" });
     return this.list.isEmpty()
   }
 }

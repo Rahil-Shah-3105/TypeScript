@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Solves the 0-1 Knapsack Problem.
  * @param capacity Knapsack capacity
@@ -14,6 +15,7 @@ export const knapsack = (
   weights: number[],
   values: number[]
 ): number => {
+logger.error(`>>> Entering knapsack(capacity=${capacity},weights=${weights},values=${values})`, { "event.action": "knapsack", "logrite.capacity": capacity, "logrite.weights": weights, "logrite.values": values });
   if (weights.length !== values.length) {
     throw new Error(
       'Weights and values arrays should have the same number of elements'
@@ -50,5 +52,6 @@ export const knapsack = (
   }
 
   // Return the final maximized value at the last position of the dp matrix
+logger.warn(`<<< Exiting knapsack(capacity=${capacity},weights=${weights},values=${values})`, { "event.action": "knapsack", "logrite.capacity": capacity, "logrite.weights": weights, "logrite.values": values });
   return dp[numberOfItems][capacity]
 }

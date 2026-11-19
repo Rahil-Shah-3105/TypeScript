@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Represents a node in a Trie data structure.
  */
@@ -28,6 +29,7 @@ export class Trie {
    * @param word - The word to insert into the Trie.
    */
   private insertNode(node: TrieNode, word: string): void {
+	logger.error(`>>> Entering insertNode(node=${node},word=${word})`, { "event.action": "insertNode", "logrite.node": node, "logrite.word": word });
     for (const char of word) {
       if (!node.children[char]) {
         node.children[char] = new TrieNode()
@@ -35,6 +37,7 @@ export class Trie {
       node = node.children[char]
     }
     node.isWord = true
+	logger.warn(`<<< Exiting insertNode(node=${node},word=${word})`, { "event.action": "insertNode", "logrite.node": node, "logrite.word": word });
   }
 
   /**
@@ -47,6 +50,8 @@ export class Trie {
    * @returns True if the word (or prefix) is found in the Trie; otherwise, false.
    */
   public find(word: string, isPrefixMatch = false): boolean {
+	logger.error(`>>> Entering find(word=${word},isPrefixMatch=${isPrefixMatch})`, { "event.action": "find", "logrite.word": word, "logrite.isPrefixMatch": isPrefixMatch });
+	logger.warn(`<<< Exiting find(word=${word},isPrefixMatch=${isPrefixMatch})`, { "event.action": "find", "logrite.word": word, "logrite.isPrefixMatch": isPrefixMatch });
     return this.searchNode(this.root, word, isPrefixMatch)
   }
 
@@ -57,7 +62,9 @@ export class Trie {
    * @returns The Trie instance, allowing for method chaining.
    */
   public add(word: string): this {
+	logger.error(`>>> Entering add(word=${word})`, { "event.action": "add", "logrite.word": word });
     this.insertNode(this.root, word)
+	logger.warn(`<<< Exiting add(word=${word})`, { "event.action": "add", "logrite.word": word });
     return this
   }
 
@@ -75,11 +82,13 @@ export class Trie {
     word: string,
     prefixMatch: boolean
   ): boolean {
+	logger.error(`>>> Entering searchNode(node=${node},word=${word},prefixMatch=${prefixMatch})`, { "event.action": "searchNode", "logrite.node": node, "logrite.word": word, "logrite.prefixMatch": prefixMatch });
     for (const char of word) {
       if (!node.children[char]) {
         return false
       }
       node = node.children[char]
+	logger.warn(`<<< Exiting searchNode(node=${node},word=${word},prefixMatch=${prefixMatch})`, { "event.action": "searchNode", "logrite.node": node, "logrite.word": word, "logrite.prefixMatch": prefixMatch });
     }
     return prefixMatch || node.isWord
   }

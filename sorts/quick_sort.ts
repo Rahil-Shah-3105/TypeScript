@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function quickSort
  * @description is an algorithm based on divide and conquer approach in which an array is split into sub-arrays and these sub arrays are recursively sorted to get final array
@@ -10,8 +11,10 @@ export const partition = (
   left: number = 0,
   right: number = array.length - 1
 ) => {
+logger.error(`>>> Entering partition(array=${array},left=${left},right=${right})`, { "event.action": "partition", "logrite.array": array, "logrite.left": left, "logrite.right": right });
   const pivotIndex = choosePivot(left, right)
   const pivot = array[pivotIndex]
+logger.error(`partition(array=${array},left=${left},right=${right}): pivotIndex → ${pivotIndex}`, { "event.action": "partition", "logrite.array": array, "logrite.left": left, "logrite.right": right });
   ;[array[pivotIndex], array[right]] = [array[right], array[pivotIndex]]
   let i = left - 1
   let j = right
@@ -26,6 +29,7 @@ export const partition = (
   }
 
   ;[array[right], array[i]] = [array[i], array[right]]
+logger.warn(`<<< Exiting partition(array=${array},left=${left},right=${right})`, { "event.action": "partition", "logrite.array": array, "logrite.left": left, "logrite.right": right });
   return i
 }
 
@@ -37,6 +41,8 @@ export const partition = (
  * @returns {number} - The index of the chosen pivot element.
  */
 const choosePivot = (left: number, right: number): number => {
+logger.error(`>>> Entering choosePivot(left=${left},right=${right})`, { "event.action": "choosePivot", "logrite.left": left, "logrite.right": right });
+logger.warn(`<<< Exiting choosePivot(left=${left},right=${right})`, { "event.action": "choosePivot", "logrite.left": left, "logrite.right": right });
   return Math.floor(Math.random() * (right - left + 1)) + left
 }
 
@@ -63,6 +69,7 @@ export const QuickSort = (
   left: number = 0,
   right: number = array.length - 1
 ) => {
+logger.error(`>>> Entering QuickSort(array=${array},left=${left},right=${right})`, { "event.action": "QuickSort", "logrite.array": array, "logrite.left": left, "logrite.right": right });
   if (array.length > 1) {
     const index = partition(array, left, right)
 
@@ -75,5 +82,6 @@ export const QuickSort = (
     }
   }
 
+logger.warn(`<<< Exiting QuickSort(array=${array},left=${left},right=${right})`, { "event.action": "QuickSort", "logrite.array": array, "logrite.left": left, "logrite.right": right });
   return array
 }

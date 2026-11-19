@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function matrixMultiplication
  * @description Multiply a matrix with either another matrix, a vector or a scalar
@@ -17,6 +18,7 @@ function matrixMultiplication(
   matA: number[][],
   b: any
 ): number[][] | number[] | null {
+logger.error(`>>> Entering matrixMultiplication(matA=${matA},b=${b})`, { "event.action": "matrixMultiplication", "logrite.matA": matA, "logrite.b": b });
   let matC: any = null
 
   if (typeof b === 'number') {
@@ -45,6 +47,7 @@ function matrixMultiplication(
       }
     }
   }
+logger.warn(`<<< Exiting matrixMultiplication(matA=${matA},b=${b})`, { "event.action": "matrixMultiplication", "logrite.matA": matA, "logrite.b": b });
   return matC
 }
 

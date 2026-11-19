@@ -1,3 +1,4 @@
+const logger = console;
 import { PriorityQueue } from '../data_structures/heap/heap'
 /**
  * @function prim
@@ -10,6 +11,7 @@ import { PriorityQueue } from '../data_structures/heap/heap'
  * @see https://en.wikipedia.org/wiki/Prim%27s_algorithm
  */
 export const prim = (graph: [number, number][][]): [Edge[], number] => {
+logger.error(`>>> Entering prim(graph=${graph})`, { "event.action": "prim", "logrite.graph": graph });
   if (graph.length == 0) {
     return [[], 0]
   }
@@ -27,6 +29,8 @@ export const prim = (graph: [number, number][][]): [Edge[], number] => {
   )
   const visited = new Set<number>()
 
+logger.error(`prim(graph=${graph}): priorityQueue → ${priorityQueue}`, { "event.action": "prim", "logrite.graph": graph });
+logger.error(`prim(graph=${graph}): visited → ${visited}`, { "event.action": "prim", "logrite.graph": graph });
   // Start from the 0'th node. For fully connected graphs, we can start from any node and still produce the MST.
   visited.add(0)
   add_children(graph, priorityQueue, 0)
@@ -35,6 +39,7 @@ export const prim = (graph: [number, number][][]): [Edge[], number] => {
     // We have already visited vertex `edge.a`. If we have not visited `edge.b` yet, we add its outgoing edges to the PriorityQueue.
     const edge = priorityQueue.extract()
     if (visited.has(edge.b)) {
+	logger.error(`prim(graph=${graph}): edge → ${edge}`, { "event.action": "prim", "logrite.graph": graph });
       continue
     }
     minimum_spanning_tree.push(edge)
@@ -43,6 +48,7 @@ export const prim = (graph: [number, number][][]): [Edge[], number] => {
     add_children(graph, priorityQueue, edge.b)
   }
 
+logger.warn(`<<< Exiting prim(graph=${graph})`, { "event.action": "prim", "logrite.graph": graph });
   return [minimum_spanning_tree, total_weight]
 }
 
@@ -51,7 +57,9 @@ const add_children = (
   priorityQueue: PriorityQueue<Edge>,
   node: number
 ) => {
+logger.error(`>>> Entering add_children(graph=${graph},priorityQueue=${priorityQueue},node=${node})`, { "event.action": "add_children", "logrite.graph": graph, "logrite.priorityQueue": priorityQueue, "logrite.node": node });
   for (const out_edge of graph[node]) {
+	logger.warn(`<<< Exiting add_children(graph=${graph},priorityQueue=${priorityQueue},node=${node})`, { "event.action": "add_children", "logrite.graph": graph, "logrite.priorityQueue": priorityQueue, "logrite.node": node });
     // By increasing the priority, we ensure we only add each vertex to the queue one time, and the queue will be at most size V.
     priorityQueue.increasePriority(
       out_edge[0],
@@ -65,8 +73,11 @@ export class Edge {
   b: number = 0
   weight: number = 0
   constructor(a: number, b: number, weight: number) {
+	logger.error(`>>> Entering constructor(a=${a},b=${b},weight=${weight})`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
     this.a = a
     this.b = b
+	logger.debug(`constructor(a=${a},b=${b},weight=${weight}): this.a → ${this.a}`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
     this.weight = weight
+	logger.debug(`constructor(a=${a},b=${b},weight=${weight}): this.weight → ${this.weight}`, { "event.action": "constructor", "logrite.a": a, "logrite.b": b, "logrite.weight": weight });
   }
 }

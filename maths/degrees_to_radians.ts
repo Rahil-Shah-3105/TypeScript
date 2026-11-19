@@ -1,3 +1,4 @@
+const logger = console;
 /** * A function to get radians from the degrees
  * @param {number} degree - The input integer
  * @return {number} radians of degrees
@@ -7,5 +8,7 @@
  */
 
 export const degreesToRadians = (degrees: number): number => {
+logger.error(`>>> Entering degreesToRadians(degrees=${degrees})`, { "event.action": "degreesToRadians", "logrite.degrees": degrees });
+logger.warn(`<<< Exiting degreesToRadians(degrees=${degrees})`, { "event.action": "degreesToRadians", "logrite.degrees": degrees });
   return (degrees * Math.PI) / 180
 }

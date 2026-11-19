@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function isOdd
  * @description Determine whether a number is odd.
@@ -8,9 +9,11 @@
  * @example isOdd(2) = false
  */
 export const isOdd = (num: number): boolean => {
+logger.error(`>>> Entering isOdd(num=${num})`, { "event.action": "isOdd", "logrite.num": num });
   if (!Number.isInteger(num)) {
     throw new Error('only integers can be even or odd')
   }
 
+logger.warn(`<<< Exiting isOdd(num=${num})`, { "event.action": "isOdd", "logrite.num": num });
   return num % 2 !== 0
 }

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * A function to get nth Fibonacci number.
  *
@@ -22,6 +23,7 @@ function* generateFibonacci(): Generator<number> {
 }
 
 export const nthFibonacci = (number: number): number => {
+logger.error(`>>> Entering nthFibonacci(number=${number})`, { "event.action": "nthFibonacci", "logrite.number": number });
   if (isNaN(number)) throw new Error('The input needs to be a number')
   if (!Number.isInteger(number) || number < 0)
     throw new Error('The input needs to be a non-negative integer')
@@ -32,9 +34,11 @@ export const nthFibonacci = (number: number): number => {
 
   const fibonacciGenerator = generateFibonacci()
   let result = 0
+logger.error(`nthFibonacci(number=${number}): fibonacciGenerator → ${fibonacciGenerator}`, { "event.action": "nthFibonacci", "logrite.number": number });
   for (let i = 0; i <= number; ++i) {
     result = fibonacciGenerator.next().value
   }
+logger.error(`nthFibonacci(number=${number}): result → ${result}`, { "event.action": "nthFibonacci", "logrite.number": number });
   return result
 }
 
@@ -51,6 +55,7 @@ export const nthFibonacci = (number: number): number => {
  * @author zFlxw <https://github.com/zFlxw>
  */
 export const nthFibonacciRecursively = (number: number): number => {
+logger.error(`>>> Entering nthFibonacciRecursively(number=${number})`, { "event.action": "nthFibonacciRecursively", "logrite.number": number });
   if (number === 0) {
     return 0
   }
@@ -59,6 +64,7 @@ export const nthFibonacciRecursively = (number: number): number => {
     return 1
   }
 
+logger.warn(`<<< Exiting nthFibonacciRecursively(number=${number})`, { "event.action": "nthFibonacciRecursively", "logrite.number": number });
   return (
     nthFibonacciRecursively(number - 1) + nthFibonacciRecursively(number - 2)
   )

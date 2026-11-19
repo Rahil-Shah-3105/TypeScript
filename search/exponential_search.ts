@@ -1,3 +1,4 @@
+const logger = console;
 import { binarySearchIterative } from './binary_search'
 
 /**
@@ -22,6 +23,7 @@ export const exponentialSearch = (
   array: number[],
   x: number
 ): number | null => {
+logger.error(`>>> Entering exponentialSearch(array=${array},x=${x})`, { "event.action": "exponentialSearch", "logrite.array": array, "logrite.x": x });
   const arrayLength = array.length
   if (arrayLength === 0) return null
 
@@ -36,5 +38,7 @@ export const exponentialSearch = (
   const end = Math.min(i, arrayLength - 1)
   const result = binarySearchIterative(array, x, start, end)
 
+logger.error(`exponentialSearch(array=${array},x=${x}): end → ${end}`, { "event.action": "exponentialSearch", "logrite.array": array, "logrite.x": x });
+logger.warn(`<<< Exiting exponentialSearch(array=${array},x=${x})`, { "event.action": "exponentialSearch", "logrite.array": array, "logrite.x": x });
   return result
 }

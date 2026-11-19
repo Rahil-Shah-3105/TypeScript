@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function bellmanFord
  * @description Compute the shortest path from a source node to all other nodes. If there is negative weight cycle, returns undefined. The input graph is in adjacency list form. It is a multidimensional array of edges. graph[i] holds the edges for the i'th node. Each edge is a 2-tuple where the 0'th item is the destination node, and the 1'th item is the edge weight.
@@ -13,10 +14,12 @@ export const bellmanFord = (
   graph: [number, number][][],
   start: number
 ): number[] | undefined => {
+logger.error(`>>> Entering bellmanFord(graph=${graph},start=${start})`, { "event.action": "bellmanFord", "logrite.graph": graph, "logrite.start": start });
   // We save the shortest distance to each node in `distances`. If a node is
   // unreachable from the start node, its distance is Infinity.
   const distances = Array(graph.length).fill(Infinity)
   distances[start] = 0
+logger.error(`bellmanFord(graph=${graph},start=${start}): distances → ${distances}`, { "event.action": "bellmanFord", "logrite.graph": graph, "logrite.start": start });
 
   // On the i'th iteration, we compute all shortest paths that consists of i+1
   // nodes. If we compute this V-1 times, we will have computed all simple
@@ -43,5 +46,6 @@ export const bellmanFord = (
     }
   }
 
+logger.warn(`<<< Exiting bellmanFord(graph=${graph},start=${start})`, { "event.action": "bellmanFord", "logrite.graph": graph, "logrite.start": start });
   return distances
 }

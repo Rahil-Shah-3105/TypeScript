@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * Represents a node of a binary search tree.
  *
@@ -44,6 +45,8 @@ export class BinarySearchTree<T> {
    * @returns Whether the binary search tree is empty.
    */
   isEmpty(): boolean {
+	logger.error('>>> Entering isEmpty()', { "event.action": "isEmpty" });
+	logger.warn('<<< Exiting isEmpty()', { "event.action": "isEmpty" });
     return this.rootNode === undefined
   }
 
@@ -53,6 +56,7 @@ export class BinarySearchTree<T> {
    * @param data The data to check for.
    */
   has(data: T): boolean {
+	logger.error(`>>> Entering has(data=${data})`, { "event.action": "has" });
     if (!this.rootNode) {
       return false
     }
@@ -74,6 +78,7 @@ export class BinarySearchTree<T> {
       }
     }
 
+	logger.warn(`<<< Exiting has(data=${data})`, { "event.action": "has" });
     return true
   }
 
@@ -84,6 +89,7 @@ export class BinarySearchTree<T> {
    * @returns
    */
   insert(data: T): void {
+	logger.error(`>>> Entering insert(data=${data})`, { "event.action": "insert" });
     if (!this.rootNode) {
       this.rootNode = new TreeNode<T>(data)
       return
@@ -107,6 +113,7 @@ export class BinarySearchTree<T> {
         }
       }
     }
+	logger.warn(`<<< Exiting insert(data=${data})`, { "event.action": "insert" });
   }
 
   /**
@@ -115,14 +122,18 @@ export class BinarySearchTree<T> {
    * @returns The minimum value of the binary search tree
    */
   findMin(): T {
+	logger.error('>>> Entering findMin()', { "event.action": "findMin" });
     if (!this.rootNode) {
       throw new Error('Empty tree.')
     }
 
     const traverse = (node: TreeNode<T>): T => {
+	logger.error(`>>> Entering traverse(node=${node})`, { "event.action": "traverse", "logrite.node": node });
+	logger.warn(`<<< Exiting traverse(node=${node})`, { "event.action": "traverse", "logrite.node": node });
       return !node.leftChild ? node.data : traverse(node.leftChild)
     }
 
+	logger.warn('<<< Exiting findMin()', { "event.action": "findMin" });
     return traverse(this.rootNode)
   }
 
@@ -132,14 +143,17 @@ export class BinarySearchTree<T> {
    * @returns The maximum value of the binary search tree
    */
   findMax(): T {
+	logger.error('>>> Entering findMax()', { "event.action": "findMax" });
     if (!this.rootNode) {
       throw new Error('Empty tree.')
     }
 
     const traverse = (node: TreeNode<T>): T => {
+	logger.error(`>>> Entering traverse(node=${node},array=${array})`, { "event.action": "traverse", "logrite.node": node, "logrite.array": array });
       return !node.rightChild ? node.data : traverse(node.rightChild)
     }
 
+	logger.warn('<<< Exiting findMax()', { "event.action": "findMax" });
     return traverse(this.rootNode)
   }
 
@@ -151,6 +165,7 @@ export class BinarySearchTree<T> {
    * @returns
    */
   inOrderTraversal(array: T[] = []): T[] {
+	logger.error(`>>> Entering inOrderTraversal(array=${array})`, { "event.action": "inOrderTraversal", "logrite.array": array });
     if (!this.rootNode) {
       return array
     }
@@ -166,6 +181,7 @@ export class BinarySearchTree<T> {
       return array
     }
 
+	logger.warn(`<<< Exiting inOrderTraversal(array=${array})`, { "event.action": "inOrderTraversal", "logrite.array": array });
     return traverse(this.rootNode)
   }
 
@@ -177,6 +193,7 @@ export class BinarySearchTree<T> {
    * @returns
    */
   preOrderTraversal(array: T[] = []): T[] {
+	logger.error(`>>> Entering preOrderTraversal(array=${array})`, { "event.action": "preOrderTraversal", "logrite.array": array });
     if (!this.rootNode) {
       return array
     }
@@ -193,6 +210,7 @@ export class BinarySearchTree<T> {
       return array
     }
 
+	logger.warn(`<<< Exiting preOrderTraversal(array=${array})`, { "event.action": "preOrderTraversal", "logrite.array": array });
     return traverse(this.rootNode)
   }
 
@@ -204,6 +222,7 @@ export class BinarySearchTree<T> {
    * @returns
    */
   postOrderTraversal(array: T[] = []): T[] {
+	logger.error(`>>> Entering postOrderTraversal(array=${array})`, { "event.action": "postOrderTraversal", "logrite.array": array });
     if (!this.rootNode) {
       return array
     }
@@ -220,6 +239,7 @@ export class BinarySearchTree<T> {
       return array
     }
 
+	logger.warn(`<<< Exiting postOrderTraversal(array=${array})`, { "event.action": "postOrderTraversal", "logrite.array": array });
     return traverse(this.rootNode)
   }
 }

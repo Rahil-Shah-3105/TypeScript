@@ -1,3 +1,4 @@
+const logger = console;
 import { partition } from './quick_sort'
 /**
  * @function QuickSelect
@@ -16,6 +17,7 @@ export const QuickSelect = (
   left: number = 0,
   right: number = array.length - 1
 ): number => {
+logger.error(`>>> Entering QuickSelect(array=${array},k=${k},left=${left},right=${right})`, { "event.action": "QuickSelect", "logrite.array": array, "logrite.k": k, "logrite.left": left, "logrite.right": right });
   if (k < 0 || k >= array.length) {
     throw new Error('k is out of bounds')
   }
@@ -27,6 +29,7 @@ export const QuickSelect = (
   // Partition the array
   const pivotIndex = partition(array, left, right)
 
+logger.error(`QuickSelect(array=${array},k=${k},left=${left},right=${right}): pivotIndex → ${pivotIndex}`, { "event.action": "QuickSelect", "logrite.array": array, "logrite.k": k, "logrite.left": left, "logrite.right": right });
   // The pivot is in its final sorted position
   if (k === pivotIndex) {
     return array[k]
@@ -35,6 +38,7 @@ export const QuickSelect = (
     return QuickSelect(array, k, left, pivotIndex - 1)
   } else {
     // If k is greater than the pivot index, look right
+logger.warn(`<<< Exiting QuickSelect(array=${array},k=${k},left=${left},right=${right})`, { "event.action": "QuickSelect", "logrite.array": array, "logrite.k": k, "logrite.left": left, "logrite.right": right });
     return QuickSelect(array, k, pivotIndex + 1, right)
   }
 }

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @author : dev-madhurendra<https://github.com/dev-madhurendra>
  * @description
@@ -8,12 +9,15 @@
  */
 
 export const minSwapsToSort = (inputArr: number[]): number => {
+logger.error(`>>> Entering minSwapsToSort(inputArr=${inputArr})`, { "event.action": "minSwapsToSort", "logrite.inputArr": inputArr });
   const sortedArray = inputArr.slice()
 
+logger.error(`minSwapsToSort(inputArr=${inputArr}): sortedArray → ${sortedArray}`, { "event.action": "minSwapsToSort", "logrite.inputArr": inputArr });
   sortedArray.sort()
 
   const indexMap = new Map()
 
+logger.error(`minSwapsToSort(inputArr=${inputArr}): indexMap → ${indexMap}`, { "event.action": "minSwapsToSort", "logrite.inputArr": inputArr });
   for (let i = 0; i < inputArr.length; i++) indexMap.set(inputArr[i], i)
 
   let swaps = 0
@@ -28,5 +32,6 @@ export const minSwapsToSort = (inputArr: number[]): number => {
     }
   }
 
+logger.warn(`<<< Exiting minSwapsToSort(inputArr=${inputArr})`, { "event.action": "minSwapsToSort", "logrite.inputArr": inputArr });
   return swaps
 }

@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function signum
  * @description Returns the sign of a number
@@ -14,9 +15,11 @@
  * @example signum("hello world") = NaN
  */
 export const signum = (num: number) => {
+logger.error(`>>> Entering signum(num=${num})`, { "event.action": "signum", "logrite.num": num });
   if (num === 0) return 0
   if (num > 0) return 1
   if (num < 0) return -1
 
+logger.warn(`<<< Exiting signum(num=${num})`, { "event.action": "signum", "logrite.num": num });
   return NaN
 }

@@ -1,3 +1,4 @@
+const logger = console;
 import { factorial } from './factorial'
 /**
  * @function binomialCoefficient
@@ -12,6 +13,7 @@ import { factorial } from './factorial'
  */
 
 export const binomialCoefficient = (n: number, k: number): number => {
+logger.error(`>>> Entering binomialCoefficient(n=${n},k=${k})`, { "event.action": "binomialCoefficient", "logrite.n": n, "logrite.k": k });
   // Check if k is larger than n or negative
   if (k > n || k < 0) {
     return 0
@@ -20,5 +22,6 @@ export const binomialCoefficient = (n: number, k: number): number => {
   // Calculate the binomial coefficient using the implemented factorial
   const numerator = factorial(n)
   const denominator = factorial(k) * factorial(n - k)
+logger.error(`binomialCoefficient(n=${n},k=${k}): numerator → ${numerator}`, { "event.action": "binomialCoefficient", "logrite.n": n, "logrite.k": k });
   return numerator / denominator
 }

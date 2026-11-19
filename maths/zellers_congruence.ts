@@ -1,3 +1,4 @@
+const logger = console;
 export enum Calendar {
   Gregorian,
   Julian
@@ -20,6 +21,7 @@ export const getWeekday = (
   day: number,
   calendar: Calendar = Calendar.Gregorian
 ): number => {
+logger.error(`>>> Entering getWeekday(year=${year},month=${month},day=${day},calendar=${calendar})`, { "event.action": "getWeekday", "logrite.year": year, "logrite.month": month, "logrite.day": day, "logrite.calendar": calendar });
   // Input validation
   if (!Number.isInteger(year) || year < 1) {
     throw new Error('Year must be an integer greater than 0')
@@ -41,6 +43,7 @@ export const getWeekday = (
 
   const century = Math.floor(year / 100)
   year %= 100
+logger.error(`getWeekday(year=${year},month=${month},day=${day},calendar=${calendar}): century → ${century}`, { "event.action": "getWeekday", "logrite.year": year, "logrite.month": month, "logrite.day": day, "logrite.calendar": calendar });
 
   let weekday: number | undefined = undefined
   if (calendar === Calendar.Gregorian) {
@@ -64,5 +67,6 @@ export const getWeekday = (
   }
 
   // Convert to Sunday being 0
+logger.warn(`<<< Exiting getWeekday(year=${year},month=${month},day=${day},calendar=${calendar})`, { "event.action": "getWeekday", "logrite.year": year, "logrite.month": month, "logrite.day": day, "logrite.calendar": calendar });
   return (weekday + 6) % 7
 }

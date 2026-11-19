@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function findFactors
  * @description Find all the factors of a natural number.
@@ -9,6 +10,7 @@
  * @example findFactors(16) = [1,3,5,15]
  */
 export const findFactors = (num: number): Set<number> => {
+logger.error(`>>> Entering findFactors(num=${num})`, { "event.action": "findFactors", "logrite.num": num });
   if (num <= 0 || !Number.isInteger(num)) {
     throw new Error('Only natural numbers are supported.')
   }
@@ -24,5 +26,6 @@ export const findFactors = (num: number): Set<number> => {
     }
   }
 
+logger.warn(`<<< Exiting findFactors(num=${num})`, { "event.action": "findFactors", "logrite.num": num });
   return res
 }

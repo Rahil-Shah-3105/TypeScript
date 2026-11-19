@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function isEven
  * @description Determine whether a number is even.
@@ -8,9 +9,11 @@
  * @example isEven(2) = true
  */
 export const isEven = (num: number): boolean => {
+logger.error(`>>> Entering isEven(num=${num})`, { "event.action": "isEven", "logrite.num": num });
   if (!Number.isInteger(num)) {
     throw new Error('only integers can be even or odd')
   }
 
+logger.warn(`<<< Exiting isEven(num=${num})`, { "event.action": "isEven", "logrite.num": num });
   return num % 2 === 0
 }

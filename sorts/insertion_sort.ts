@@ -1,3 +1,4 @@
+const logger = console;
 /**
  * @function insertionSort
  * @description simple sortion algorithm for a small number of elements. It compares the `key` element with the previous elements. If the previous elements are greater than the `key` element, then you move the previous element to the next position.
@@ -8,6 +9,7 @@
  */
 
 export const insertionSort = (arr: number[]): number[] => {
+logger.error(`>>> Entering insertionSort(arr=${arr})`, { "event.action": "insertionSort", "logrite.arr": arr });
   for (let i = 1; i < arr.length; i++) {
     const temp = arr[i]
     let j = i - 1
@@ -18,5 +20,6 @@ export const insertionSort = (arr: number[]): number[] => {
     arr[j + 1] = temp
   }
 
+logger.warn(`<<< Exiting insertionSort(arr=${arr})`, { "event.action": "insertionSort", "logrite.arr": arr });
   return arr
 }
